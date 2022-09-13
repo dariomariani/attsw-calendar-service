@@ -38,5 +38,5 @@ jobs:
         uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
         with:
           gradle-version: current
-          arguments: build sonarqube --info
+          arguments: build --info
           
