@@ -1,0 +1,78 @@
+package services;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import data.Event;
+import data.User;
+import utils.DateTimeUtil;
+public class EventService {
+	
+	private List<Event> eventRepository;
+	
+	public EventService(List<Event> eventRepository) {
+		this.eventRepository = eventRepository;
+	}
+	
+	public List<Event> findAll(){
+		return this.eventRepository;
+	}
+	
+	public List<Event> findEventByUserAndPeriod(User owner, LocalDateTime startPeriod, LocalDateTime endPeriod){
+		return this.eventRepository.stream()
+				.filter(event -> event.getOwner().getId().equals(owner.getId()) && hasOverlappingPeriod(event, startPeriod, endPeriod))
+				.collect(Collectors.toList());
+	}
+	
+	public Event findEventById(UUID id) {
+		return this.eventRepository.stream()
+				.filter(event -> event.getId().equals(id)).findFirst().get();
+	}
+
+	public void createEvent(Event newEvent) {
+		validate(newEvent);
+		eventRepository.add(newEvent);
+	}
+	
+	public void updateEvent(Event updatedEvent) {
+		var dbEvent = findEventById(updatedEvent.getId());
+		dbEvent.setName(updatedEvent.getName());
+		validateName(dbEvent);
+		dbEvent.setStartsAt(updatedEvent.getStartsAt());
+		dbEvent.setEndsAt(updatedEvent.getEndsAt());
+
+	}
+	
+	private void validate(Event event) {
+		validateFields(event);
+		checkOverlappingEvent(event); 
+	}
+	
+	private void validateName(Event event) {
+		if (event.getName() == null || event.getName().isBlank()) throw new IllegalArgumentException("EventName cannot be null nor blank.");
+	}
+	
+	private void validateFields(Event event) {
+		validateName(event);
+		if (event.getStartsAt() == null) throw new IllegalArgumentException("StartsAt cannot be null.");
+		if (event.getEndsAt() == null) throw new IllegalArgumentException("EndsAt cannot be null.");
+		if (event.getOwner( ) == null) throw new IllegalArgumentException("Owner cannot be null.");
+		if (event.getStartsAt().isAfter(event.getEndsAt())) throw new IllegalArgumentException("EndsAt must be after StartsAt.");
+	}
+	
+	private boolean hasOverlappingPeriod(Event event, LocalDateTime startPeriod, LocalDateTime endPeriod) {
+		return DateTimeUtil.isBetween(event.getStartsAt(), event.getEndsAt(), startPeriod) 
+				|| DateTimeUtil.isBetween(event.getStartsAt(), event.getEndsAt(), endPeriod)
+				|| (event.getStartsAt().isBefore(startPeriod) && event.getEndsAt().isAfter(endPeriod))
+				|| (event.getStartsAt().isAfter(startPeriod) && event.getEndsAt().isBefore(endPeriod));
+	}
+	
+	private void checkOverlappingEvent(Event event) {
+		var eventsByPeriod = findEventByUserAndPeriod(event.getOwner(), event.getStartsAt(), event.getEndsAt());
+		if (!eventsByPeriod.isEmpty()) throw new IllegalArgumentException("Cannot create overlapping event.");
+	}
+
+
+}
