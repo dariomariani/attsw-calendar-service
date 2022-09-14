@@ -6,50 +6,50 @@ import java.util.UUID;
 
 public class Event {
 
-	private UUID Id;
-	private String Name;
-	private LocalDateTime StartsAt;
-	private User Owner;
-	private LocalDateTime EndsAt;
+	private UUID id;
+	private String name;
+	private LocalDateTime startsAt;
+	private User owner;
+	private LocalDateTime endsAt;
 
 	public Event(String name, User owner, LocalDateTime startsAt, LocalDateTime endsAt) {
-		this.Name = name;
-		this.StartsAt = startsAt;
-		this.Owner = owner;
-		this.EndsAt = endsAt;
-		this.Id = UUID.randomUUID();
+		this.name = name;
+		this.startsAt = startsAt;
+		this.owner = owner;
+		this.endsAt = endsAt;
+		this.id = UUID.randomUUID();
 	}
 
 	public LocalDateTime getStartsAt() {
-		return StartsAt;
+		return startsAt;
 	}
 
 	public void setStartsAt(LocalDateTime startsAt) {
-		StartsAt = startsAt;
+		this.startsAt = startsAt;
 	}
 
 	public User getOwner() {
-		return Owner;
+		return owner;
 	}
 
 	public LocalDateTime getEndsAt() {
-		return EndsAt;
+		return endsAt;
 	}
 	
 	public void setEndsAt(LocalDateTime endsAt) {
-		EndsAt = endsAt;
+		this.endsAt = endsAt;
 	}
 
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
 
 	public String getName() {
-		return Name;
+		return name;
 	}
 
 	public UUID getId() {
-		return Id;
+		return id;
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class Event {
 		if (getClass() != obj.getClass())
 			return false;
 		Event other = (Event) obj;
-		return Objects.equals(Id, other.Id); 
+		return Objects.equals(id, other.id); 
 	}
 
 }
