@@ -43,6 +43,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 40
           min-coverage-changed-files: 60
+      - name: Test and Publish Coverage
+            env:
+                COVERALLS_REPO_TOKEN: OheBIZr7baakPAqzfZtpYhycDlyxB7ncB
+            run: ./gradlew test jacocoTestReport coverallsJacoco
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
@@ -51,7 +55,3 @@ jobs:
         with:
           gradle-version: current
           arguments: build --info
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}   

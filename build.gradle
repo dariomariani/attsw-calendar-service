@@ -11,11 +11,14 @@ plugins {
     id 'java-library'
     //JaCoCo plugin for code coverage
     id 'jacoco'
+    //Coveralls plugin to send JaCoCo files to coverall.io
+    id "com.github.nbaztec.coveralls-jacoco" version "1.2.15"
 }
 
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
+    mavenCentral()
     jcenter()
 }
 
