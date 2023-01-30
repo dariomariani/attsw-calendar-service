@@ -46,7 +46,7 @@ jobs:
       - name: Test and Publish Coverage
         env:
             COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
-        run: ./gradlew test jacocoTestReport coverallsJacoco
+        run: ./gradlew test jacocoTestReport coverallsJacoco --stacktrace
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
