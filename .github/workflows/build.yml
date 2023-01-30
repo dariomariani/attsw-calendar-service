@@ -45,7 +45,7 @@ jobs:
           min-coverage-changed-files: 60
       - name: Test and Publish Coverage
         env:
-            COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+            COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
         run: ./gradlew test jacocoTestReport coverallsJacoco
       - name: Build and analyze
         env:
