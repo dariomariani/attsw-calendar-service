@@ -4,16 +4,16 @@ public class Program {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println(getHelloWorld());
-		System.out.println(getHello());
+		System.out.println(getHelloWorld("Hello World"));
+		System.out.println(getHello("Hello World"));
 	}
 	
-	private static String getHelloWorld() {
-		return "Hello World";
+	private static String getHelloWorld(String message) {
+		return message + " " + message;
 	}
 	
-	private static String getHello() {
-		return "Hello World";
+	private static String getHello(String message) {
+		return message + " " + message;
 	}
 
 
