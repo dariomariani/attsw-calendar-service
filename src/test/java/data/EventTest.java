@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
 
+import models.Event;
+import models.User;
 import testdataset.TestUserDataset;
 
 public class EventTest {

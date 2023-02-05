@@ -2,7 +2,7 @@ package services;
 
 import java.util.List;
 
-import data.User;
+import models.User;
 
 public class UserService {
 	private List<User> userRepository;

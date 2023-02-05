@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import models.User;
 import testdataset.TestUserDataset;
 
 @RunWith(Parameterized.class)

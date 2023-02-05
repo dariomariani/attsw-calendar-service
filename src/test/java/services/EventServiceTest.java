@@ -9,8 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import data.Event;
-import data.User;
+import models.Event;
+import models.User;
 import testdataset.TestUserDataset;
 
 public class EventServiceTest {
