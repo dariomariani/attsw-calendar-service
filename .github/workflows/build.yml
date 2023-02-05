@@ -56,6 +56,6 @@ jobs:
           gradle-version: current
           arguments: build --info
       - name: Analyze with SonarCloud
-        uses: sonarsource/sonarcloud-github-action@v1
+        uses: sonarsource/sonarcloud-github-action@main
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
