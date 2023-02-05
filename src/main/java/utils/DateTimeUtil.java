@@ -3,11 +3,7 @@ package utils;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class DateTimeUtil {
-	
-	 private DateTimeUtil() {
-		 throw new IllegalStateException("Utility class");
-	}
+public final class DateTimeUtil {
 	
 	public static String formatLocalDateTime(LocalDateTime dateTime) {
 		var formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
