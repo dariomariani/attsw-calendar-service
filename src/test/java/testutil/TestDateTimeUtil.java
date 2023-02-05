@@ -2,6 +2,8 @@ package testutil;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
@@ -51,6 +53,17 @@ public class TestDateTimeUtil {
 	@Test
 	public void testCheckDateIsBetweenTwoDatesWhenIsBetween() {
 		assertEquals(expectedResult, DateTimeUtil.isBetween(startDate, endDate, expectedDate));
+	}
+	
+	@Test(expected = UnsupportedOperationException.class)
+	public void testWhenIstantiateUtilityClassThrowsException() throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException {
+		Constructor<DateTimeUtil> c = DateTimeUtil.class.getDeclaredConstructor();
+		c.setAccessible(true);
+		try {
+	        c.newInstance();
+	    } catch (InvocationTargetException e) {
+	        throw (UnsupportedOperationException) e.getTargetException();
+	    }
 	}
 
 }
