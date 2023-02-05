@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import data.Event;
-import data.User;
+import models.Event;
+import models.User;
 import utils.DateTimeUtil;
 public class EventService {
 	

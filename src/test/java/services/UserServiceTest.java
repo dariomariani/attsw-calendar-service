@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import data.User;
+import models.User;
 import testdataset.TestUserDataset;
 
 public class UserServiceTest {
