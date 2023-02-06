@@ -24,6 +24,11 @@ repositories {
     jcenter()
 }
 
+configurations {
+  	mysql
+  	postgresql
+}
+
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api 'org.apache.commons:commons-math3:3.6.1'
@@ -32,10 +37,23 @@ dependencies {
     implementation 'com.google.guava:guava:29.0-jre'
    	
    	implementation 'commons-beanutils:commons-beanutils:1.9.4'
+   	
+   	//Hibernate
+    implementation 'org.hibernate:hibernate-core:6.1.6.Final'
+    
+    if (project.hasProperty("mysql")) {
+        implementation 'mysql:mysql-connector-java:8.0.21'
+    }
+    if (project.hasProperty("postgresql")) {
+        implementation 'org.postgresql:postgresql:42.2.16'
+    } else {
+        implementation 'com.h2database:h2:1.0.60'
+    }
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.12.4'
+    
 }
 
 test {
