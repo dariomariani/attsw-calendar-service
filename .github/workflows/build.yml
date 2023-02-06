@@ -51,7 +51,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+        uses: gradle/gradle-build-action@v2
         with:
           gradle-version: current
           arguments: build --info
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: current
+          arguments: build -Pmysql
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: current
+          arguments: build -Ppostgresql
