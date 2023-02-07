@@ -55,11 +55,9 @@ jobs:
         with:
           gradle-version: current
           arguments: build --info
-        uses: gradle/gradle-build-action@v2
         with:
           gradle-version: current
           arguments: build -Pmysql
-        uses: gradle/gradle-build-action@v2
         with:
           gradle-version: current
           arguments: build -Ppostgresql
