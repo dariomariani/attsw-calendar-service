@@ -10,6 +10,9 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+       db: [h2, mysql, postgresql]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -20,22 +23,24 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - name: Cache SonarCloud packages
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
       - name: Cache Gradle packages
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
       - name: Run Coverage
+        if: ${{ matrix.db == 'h2' }} 
         run: |
           chmod +x gradlew
           ./gradlew jacocoTestReport
       - name: Add coverage to PR
+        if: ${{ matrix.db == 'h2' }}
         id: jacoco
         uses: madrapps/jacoco-report@v1.3
         with:
@@ -44,6 +49,7 @@ jobs:
           min-coverage-overall: 40
           min-coverage-changed-files: 60
       - name: Test and Publish Coverage
+        if: ${{ matrix.db == 'h2' }}
         env:
             COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
         run: ./gradlew test jacocoTestReport coverallsJacoco
@@ -54,10 +60,4 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: current
-          arguments: build --info
-        with:
-          gradle-version: current
-          arguments: build -Pmysql
-        with:
-          gradle-version: current
-          arguments: build -Ppostgresql
+          arguments: build -P${{ matrix.db }} --info
