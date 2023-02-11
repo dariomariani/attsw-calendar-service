@@ -10,6 +10,9 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+       db: [h2, mysql, postgresql]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -54,10 +57,4 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: current
-          arguments: build --info
-        with:
-          gradle-version: current
-          arguments: build -Pmysql
-        with:
-          gradle-version: current
-          arguments: build -Ppostgresql
+          arguments: build -P${{ matrix.db }} --info

@@ -43,11 +43,13 @@ dependencies {
     
     if (project.hasProperty("mysql")) {
         implementation 'mysql:mysql-connector-java:8.0.21'
-    }
-    if (project.hasProperty("postgresql")) {
+        project.buildDir = 'build/mysql'
+    }else if (project.hasProperty("postgresql")) {
         implementation 'org.postgresql:postgresql:42.2.16'
+        project.buildDir = 'build/postgresql'
     } else {
         implementation 'com.h2database:h2:1.0.60'
+        project.buildDir = 'build/develop'
     }
 
     // Use JUnit test framework
