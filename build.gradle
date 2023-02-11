@@ -47,9 +47,9 @@ dependencies {
     }else if (project.hasProperty("postgresql")) {
         implementation 'org.postgresql:postgresql:42.2.16'
         project.buildDir = 'build/postgresql'
-    } else {
+    } else if (project.hasProperty("h2")){
         implementation 'com.h2database:h2:1.0.60'
-        project.buildDir = 'build/develop'
+        project.buildDir = 'build/h2'
     }
 
     // Use JUnit test framework
