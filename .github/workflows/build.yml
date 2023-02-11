@@ -35,18 +35,21 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
       - name: Run Coverage
+        if: ${{ matrix.db == 'h2' }} 
         run: |
           chmod +x gradlew
           ./gradlew jacocoTestReport
       - name: Add coverage to PR
+        if: ${{ matrix.db == 'h2' }}
         id: jacoco
         uses: madrapps/jacoco-report@v1.3
         with:
-          paths: ${{ github.workspace }}/build/${{ matrix.db }}/reports/jacoco/test/jacocoTestReport.xml
+          paths: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 40
           min-coverage-changed-files: 60
       - name: Test and Publish Coverage
+        if: ${{ matrix.db == 'h2' }}
         env:
             COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
         run: ./gradlew test jacocoTestReport coverallsJacoco

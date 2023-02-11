@@ -49,7 +49,6 @@ dependencies {
         project.buildDir = 'build/postgresql'
     } else if (project.hasProperty("h2")){
         implementation 'com.h2database:h2:1.0.60'
-        project.buildDir = 'build/h2'
     }
 
     // Use JUnit test framework
