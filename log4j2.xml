@@ -1,0 +1,13 @@
+<Configuration>
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Logger name="org.hibernate" level="DEBUG"/>
+    <Root level="ERROR">
+      <AppenderRef ref="Console"/>
+    </Root>
+  </Loggers>
+</Configuration>

@@ -4,20 +4,54 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Event {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.UuidGenerator.Style;
+
+import jakarta.persistence.ManyToOne;
+
+@Entity
+@Table(name="event")
+public class Event {
+	
+	@Id
+    @GeneratedValue
+    @UuidGenerator(style = Style.AUTO)
 	private UUID id;
+	
+	@Column(name="name", nullable=false, length = 64)
 	private String name;
+	
+	@Column(name="starts_at", nullable=false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime startsAt;
-	private User owner;
+	
+	@Column(name="ends_at", nullable=false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime endsAt;
+	
+	@ManyToOne
+	@JoinColumn(name = "owner_id", referencedColumnName = "id")
+	private User owner;
 
 	public Event(String name, User owner, LocalDateTime startsAt, LocalDateTime endsAt) {
 		this.name = name;
 		this.startsAt = startsAt;
 		this.owner = owner;
 		this.endsAt = endsAt;
-		this.id = UUID.randomUUID();
+        this.id = UUID.randomUUID();
+	}
+	
+	public Event() {
+		
 	}
 
 	public LocalDateTime getStartsAt() {
