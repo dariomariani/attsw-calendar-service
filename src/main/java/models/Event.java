@@ -16,6 +16,8 @@ import jakarta.persistence.TemporalType;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.annotations.UuidGenerator.Style;
 
+import com.google.gson.annotations.Expose;
+
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -25,15 +27,19 @@ public class Event {
 	@Id
     @GeneratedValue
     @UuidGenerator(style = Style.AUTO)
+	@Expose
 	private UUID id;
 	
+	@Expose
 	@Column(name="name", nullable=false, length = 64)
 	private String name;
 	
+	@Expose
 	@Column(name="starts_at", nullable=false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime startsAt;
 	
+	@Expose
 	@Column(name="ends_at", nullable=false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime endsAt;
@@ -64,6 +70,10 @@ public class Event {
 
 	public User getOwner() {
 		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 
 	public LocalDateTime getEndsAt() {

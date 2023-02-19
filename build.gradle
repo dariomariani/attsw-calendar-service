@@ -41,9 +41,10 @@ dependencies {
    	//Hibernate
     implementation 'org.hibernate:hibernate-core:6.1.6.Final'
     implementation 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'
-   	// https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api
 	implementation 'javax.persistence:javax.persistence-api:2.2'
-	
+	//TODO remove
+	implementation 'mysql:mysql-connector-java:8.0.21'
+	implementation 'org.postgresql:postgresql:42.2.16'
 	implementation 'com.h2database:h2:1.4.200'
     
     if (project.hasProperty("mysql")) {

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import com.google.gson.annotations.Expose;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,18 +16,21 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="user")
+@Table(name="app_user")
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
+	@Expose
 	private UUID id;
 	
 	@Column(name="username", nullable=false, unique=true, length = 64)
+	@Expose
 	private String userName;
 	
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+	@Expose
     private List<Event> events;
 
 	public User(String userName) {
@@ -67,6 +72,5 @@ public class User {
 		User other = (User) obj;
 		return Objects.equals(userName, other.userName);
 	}
-	
 	
 }
