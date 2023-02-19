@@ -7,7 +7,7 @@ public interface EntityRepository<T> {
 	
 	UUID save(T entity);
 
-	<T> T findById(UUID id, Class<T> entityType);
+	T findById(UUID id, Class<T> entityType);
 
-	<T> List<T> findAll(Class<T> entityType);
+	List<T> findAll(Class<T> entityType);
 }

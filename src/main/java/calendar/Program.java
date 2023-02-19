@@ -11,11 +11,10 @@ import org.hibernate.Session;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
-import models.BaseEntity;
 import models.Event;
 import models.User;
-import repository.EntityRepository;
-import repository.impl.EntityRepositoryImpl;
+import repository.impl.EventRepositoryImpl;
+import repository.impl.UserRepositoryImpl;
 
 public class Program {
 
@@ -65,8 +64,8 @@ public class Program {
 		// assign events to owner
 		user.setEvents(events);
 		//UserRepository userRepository = new UserRepositoryImpl(entityManagerFactory);
-		EntityRepository<BaseEntity> userRepository = new EntityRepositoryImpl<User>(entityManagerFactory);
-		EntityRepository<BaseEntity> eventRepository = new EntityRepositoryImpl<Event>(entityManagerFactory);
+		UserRepositoryImpl userRepository = new UserRepositoryImpl(entityManagerFactory);
+		EventRepositoryImpl eventRepository = new EventRepositoryImpl(entityManagerFactory);
 		userRepository.save(user);
 		System.out.println("UserID = " + "\n" + user.getId());
 		
