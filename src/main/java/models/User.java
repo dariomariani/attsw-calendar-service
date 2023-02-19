@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-import com.google.gson.annotations.Expose;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,7 +20,6 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
-	@Expose
 	private UUID id;
 	
 	@Column(name="username", nullable=false, unique=true, length = 64)
@@ -30,7 +27,6 @@ public class User {
 	private String userName;
 	
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-	@Expose
     private List<Event> events;
 
 	public User(String userName) {
