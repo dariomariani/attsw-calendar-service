@@ -7,41 +7,30 @@ import java.util.UUID;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="app_user")
-public class User {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id")
-	private UUID id;
+public class User extends BaseEntity {
 	
 	@Column(name="username", nullable=false, unique=true, length = 64)
-	private String userName;
+	private String username;
 	
-	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Event> events;
 
-	public User(String userName) {
-		this.userName = userName;
+	public User(String username) {
+		this.username = username;
         this.id = UUID.randomUUID();
 	}
 	
 	public User() {
 	}
 
-	public UUID getId() {
-		return id;
-	}
-
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
 	public List<Event> getEvents() {
@@ -52,8 +41,8 @@ public class User {
 		this.events = events;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	@Override
@@ -65,7 +54,14 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(userName, other.userName);
+		return Objects.equals(username, other.username);
 	}
+
+	@Override
+	public String toString() {
+		return "User [id = " + id + ", userName = " + username + ", events = " + events + "]";
+	}
+	
+	
 	
 }

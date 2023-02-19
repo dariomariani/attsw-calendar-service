@@ -17,7 +17,7 @@ public class UserService {
 	}
 
 	public void createUser(User newUser) {
-		if (userRepository.contains(newUser)) throw new IllegalArgumentException(String.format("A User with the Username {0} already exists.", newUser.getUserName()));
+		if (userRepository.contains(newUser)) throw new IllegalArgumentException(String.format("A User with the Username {0} already exists.", newUser.getUsername()));
 		this.userRepository.add(newUser);
 	}
 
