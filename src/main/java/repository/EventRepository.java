@@ -7,7 +7,7 @@ import models.Event;
 
 public interface EventRepository {
 	
-	Event save(Event event);
+	UUID save(Event event);
 
 	Event findById(UUID id);
 	
