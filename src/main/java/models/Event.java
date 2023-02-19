@@ -4,20 +4,54 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Event {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
+import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.UuidGenerator.Style;
+
+import jakarta.persistence.ManyToOne;
+
+@Entity
+@Table(name="event")
+public class Event {
+	
+	@Id
+    @GeneratedValue
+    @UuidGenerator(style = Style.AUTO)
 	private UUID id;
+	
+	@Column(name="name", nullable=false, length = 64)
 	private String name;
+	
+	@Column(name="starts_at", nullable=false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime startsAt;
-	private User owner;
+	
+	@Column(name="ends_at", nullable=false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime endsAt;
+	
+	@ManyToOne
+	@JoinColumn(name = "owner_id", referencedColumnName = "id")
+	private User owner;
 
 	public Event(String name, User owner, LocalDateTime startsAt, LocalDateTime endsAt) {
 		this.name = name;
 		this.startsAt = startsAt;
 		this.owner = owner;
 		this.endsAt = endsAt;
-		this.id = UUID.randomUUID();
+        this.id = UUID.randomUUID();
+	}
+	
+	public Event() {
+		
 	}
 
 	public LocalDateTime getStartsAt() {
@@ -30,6 +64,10 @@ public class Event {
 
 	public User getOwner() {
 		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 
 	public LocalDateTime getEndsAt() {

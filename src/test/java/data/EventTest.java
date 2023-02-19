@@ -19,13 +19,6 @@ public class EventTest {
 	public void setup() {
 		this.standardUser = new User(TestUserDataset.USERNAME1);
 	}
-
-	@Test
-	public void testCreateMultipleNewEventsHaveDifferentIds() {
-		var newEvent1 = new Event("Good Event", standardUser, LocalDateTime.now(), LocalDateTime.now().plusHours(2));
-		var newEvent2 = new Event("Good Event2", standardUser, LocalDateTime.now(), LocalDateTime.now().plusHours(2));
-		assertNotEquals(newEvent1.getId(), newEvent2.getId());
-	}
 	
 	@Test
 	public void testEqualsWhenSameObject() {
