@@ -76,7 +76,7 @@ jacocoTestReport {
     }
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: ['data/**','calendar/**','persistence/**'])
+            fileTree(dir: it, exclude: ['models/**','calendar/**','persistence/**'])
         }))
     }
 }

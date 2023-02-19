@@ -31,6 +31,8 @@ public class EventRepositoryImpl implements EventRepository {
 				transaction.rollback();
 			}
 			throw e;
+		} finally {
+			entityManager.close();
 		}
 		return event.getId();
 	}
