@@ -11,12 +11,11 @@ import org.hibernate.Session;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
+import models.BaseEntity;
 import models.Event;
 import models.User;
-import repository.EventRepository;
-import repository.UserRepository;
-import repository.impl.EventRepositoryImpl;
-import repository.impl.UserRepositoryImpl;
+import repository.EntityRepository;
+import repository.impl.EntityRepositoryImpl;
 
 public class Program {
 
@@ -65,13 +64,14 @@ public class Program {
 		events.add(event3);
 		// assign events to owner
 		user.setEvents(events);
-		UserRepository userRepository = new UserRepositoryImpl(entityManagerFactory);
-		EventRepository eventRepository = new EventRepositoryImpl(entityManagerFactory);
+		//UserRepository userRepository = new UserRepositoryImpl(entityManagerFactory);
+		EntityRepository<BaseEntity> userRepository = new EntityRepositoryImpl<User>(entityManagerFactory);
+		EntityRepository<BaseEntity> eventRepository = new EntityRepositoryImpl<Event>(entityManagerFactory);
 		userRepository.save(user);
 		System.out.println("UserID = " + "\n" + user.getId());
 		
 		var result = eventRepository.findAll();
-		System.out.println("Events found: " + result.stream().map(Event::toString).collect(Collectors.joining(", ")));
+		System.out.println("Events found: " + result.stream().map(Event.class::cast).map(Event::toString).collect(Collectors.joining(", ")));
 		
 		var resultUser = userRepository.findById(user.getId());
 		System.out.println("Users found: " + resultUser.toString());
