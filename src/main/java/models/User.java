@@ -1,25 +1,65 @@
 package models;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import com.google.gson.annotations.Expose;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="app_user")
 public class User {
-	private UUID Id;
-	private String UserName;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id")
+	@Expose
+	private UUID id;
+	
+	@Column(name="username", nullable=false, unique=true, length = 64)
+	@Expose
+	private String userName;
+	
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+	@Expose
+    private List<Event> events;
+
 	public User(String userName) {
-		Id = UUID.randomUUID();
-		UserName = userName;
+		this.userName = userName;
+        this.id = UUID.randomUUID();
+	}
+	
+	public User() {
 	}
 
 	public UUID getId() {
-		return Id;
+		return id;
 	}
 
 	public String getUserName() {
-		return UserName;
+		return userName;
 	}
 
+	public List<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(List<Event> events) {
+		this.events = events;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -30,8 +70,7 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(UserName, other.UserName);
+		return Objects.equals(userName, other.userName);
 	}
-	
 	
 }
