@@ -23,7 +23,6 @@ public class User {
 	private UUID id;
 	
 	@Column(name="username", nullable=false, unique=true, length = 64)
-	@Expose
 	private String userName;
 	
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
