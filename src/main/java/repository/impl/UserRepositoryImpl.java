@@ -31,6 +31,8 @@ public class UserRepositoryImpl implements UserRepository {
 				transaction.rollback();
 			}
 			throw e;
+		} finally {
+			entityManager.close();
 		}
 		return user.getId();
 	}
