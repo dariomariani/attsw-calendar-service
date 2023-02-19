@@ -3,11 +3,7 @@ package utils;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import com.google.gson.TypeAdapterFactory;
-
 public final class DateTimeUtil {
-	
-	public static TypeAdapterFactory DateTimeTypeAdapterFactory;
 
 	private DateTimeUtil() {
 		throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
