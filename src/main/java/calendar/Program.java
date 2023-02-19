@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,9 +16,14 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 
+import jakarta.persistence.Persistence;
 import models.Event;
 import models.User;
 import persistence.HibernateConfigProperties;
+import repository.EventRepository;
+import repository.UserRepository;
+import repository.impl.EventRepositoryImpl;
+import repository.impl.UserRepositoryImpl;
 
 public class Program {
 
@@ -27,27 +34,27 @@ public class Program {
 				.addAnnotatedClass(Event.class);
 		StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 //				h2
-//				.applySettings(HibernateConfigProperties.getH2Properties())
+				.applySettings(HibernateConfigProperties.getH2Properties())
 //				MySql
-				.applySettings(HibernateConfigProperties.getMySqlProperties())
+//				.applySettings(HibernateConfigProperties.getMySqlProperties())
 //				PostgreSQL
 //				.applySettings(HibernateConfigProperties.getPostgreSqlProperties())
 				.build();
-//		final Connection connection = serviceRegistry
-//				.getService(ConnectionProvider.class)
-//				.getConnection();
-//		Runnable openConsole = new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				try {
-//					org.h2.tools.Server.startWebServer(connection);
-//				}catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//				
-//			}
-//		};
+		final Connection connection = serviceRegistry
+				.getService(ConnectionProvider.class)
+				.getConnection();
+		Runnable openConsole = new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					org.h2.tools.Server.startWebServer(connection);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+		};
 		SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 		Session session = sessionFactory.openSession();
 		System.out.println("Begin transaction...");
@@ -82,8 +89,17 @@ public class Program {
 		user.setEvents(events);
 		session.persist(user);
 		transaction.commit();
-		System.out.println("User = " + "\n" + user.toString());
-//		new Thread(openConsole).run();
+		System.out.println("UserID = " + "\n" + user.getId());
+		//jakarta
+		var entityManagerFactory = Persistence.createEntityManagerFactory("h2");
+		EventRepository eventRepository = new EventRepositoryImpl(entityManagerFactory);
+		var result = eventRepository.findAll();
+		System.out.println("Events found: " + result.stream().map(Event::toString)
+                .collect(Collectors.joining(", ")));
+		UserRepository userRepository = new UserRepositoryImpl(entityManagerFactory);
+		var resultUser = userRepository.findById(user.getId());
+		System.out.println("Users found: " + resultUser.toString());
+		new Thread(openConsole).run();
 	}
 	
 

@@ -102,4 +102,9 @@ public class Event {
 		return Objects.equals(id, other.id); 
 	}
 
+	@Override
+	public String toString() {
+		return "Event [id = " + id + ", name = " + name + "]";
+	}
+
 }

@@ -7,6 +7,7 @@ import java.util.UUID;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,7 +26,7 @@ public class User {
 	@Column(name="username", nullable=false, unique=true, length = 64)
 	private String userName;
 	
-	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Event> events;
 
 	public User(String userName) {
@@ -67,5 +68,12 @@ public class User {
 		User other = (User) obj;
 		return Objects.equals(userName, other.userName);
 	}
+
+	@Override
+	public String toString() {
+		return "User [id = " + id + ", userName = " + userName + ", events = " + events + "]";
+	}
+	
+	
 	
 }
