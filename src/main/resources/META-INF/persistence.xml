@@ -13,7 +13,7 @@
             <property name="hibernate.connection.username" value="sa"/>
             <property name="hibernate.connection.password" value=""/>
             <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
             <property name="hibernate.current_session_context_class" value="org.hibernate.context.internal.ThreadLocalSessionContext"/>
         </properties>
     </persistence-unit>

@@ -6,26 +6,15 @@ import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
-import org.hibernate.annotations.UuidGenerator;
-import org.hibernate.annotations.UuidGenerator.Style;
-
-import jakarta.persistence.ManyToOne;
-
 @Entity
 @Table(name="event")
-public class Event {
-	
-	@Id
-    @GeneratedValue
-    @UuidGenerator(style = Style.AUTO)
-	private UUID id;
+public class Event extends BaseEntity {
 	
 	@Column(name="name", nullable=false, length = 64)
 	private String name;
@@ -85,11 +74,7 @@ public class Event {
 	public String getName() {
 		return name;
 	}
-
-	public UUID getId() {
-		return id;
-	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

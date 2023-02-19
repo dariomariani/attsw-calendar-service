@@ -6,7 +6,6 @@ import java.util.UUID;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 import models.Event;
 import repository.EventRepository;
