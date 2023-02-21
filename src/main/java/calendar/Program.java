@@ -19,23 +19,27 @@ import repository.impl.UserRepositoryImpl;
 public class Program {
 
 	public static void main(String[] args) throws SQLException {
-		System.out.println("Calendar App is running...");
+		String dbProvider = System.getProperty("dbprovider");
+		System.out.println("Calendar App is running on " + dbProvider + " ...");
 		// jakarta
-		var entityManagerFactory = Persistence.createEntityManagerFactory("h2");
+		var entityManagerFactory = Persistence.createEntityManagerFactory(dbProvider);
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		Connection connection = entityManager.unwrap(Session.class).doReturningWork(conn -> conn);
-		Runnable openConsole = new Runnable() {
+		Runnable openConsole = null;
+		if (dbProvider.equals("h2")) {
+			Connection connection = entityManager.unwrap(Session.class).doReturningWork(conn -> conn);
+			openConsole = new Runnable() {
 
-			@Override
-			public void run() {
-				try {
-					org.h2.tools.Server.startWebServer(connection);
-				} catch (Exception e) {
-					e.printStackTrace();
+				@Override
+				public void run() {
+					try {
+						org.h2.tools.Server.startWebServer(connection);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
 				}
-
-			}
-		};
+			};
+		}
 		User user = new User();
 		user.setUsername("Dario Mariani");
 		// create some events
@@ -73,7 +77,7 @@ public class Program {
 		
 		var resultUser = userRepository.findById(user.getId());
 		System.out.println("Users found: " + resultUser.toString());
-		new Thread(openConsole).run();
+		if (dbProvider.equals("h2")) new Thread(openConsole).run();
 	}
 
 }
