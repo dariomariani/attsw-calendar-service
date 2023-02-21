@@ -23,7 +23,11 @@ public class User extends BaseEntity {
 
 	public User(String username) {
 		this.username = username;
-        this.id = UUID.randomUUID();
+	}
+	
+	public User(UUID id, String username) {
+		this.id = id;
+		this.username = username;
 	}
 	
 	public User() {
