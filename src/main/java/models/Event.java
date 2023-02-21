@@ -36,7 +36,6 @@ public class Event extends BaseEntity {
 		this.startsAt = startsAt;
 		this.owner = owner;
 		this.endsAt = endsAt;
-        this.id = UUID.randomUUID();
 	}
 	
 	public Event() {

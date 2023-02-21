@@ -7,42 +7,44 @@ import java.util.stream.Collectors;
 
 import models.Event;
 import models.User;
+import repository.impl.EventRepositoryImpl;
 import utils.DateTimeUtil;
 public class EventService {
+
+	private EventRepositoryImpl eventRepository;
 	
-	private List<Event> eventRepository;
-	
-	public EventService(List<Event> eventRepository) {
+	public EventService(EventRepositoryImpl eventRepository) {
 		this.eventRepository = eventRepository;
 	}
 	
 	public List<Event> findAll(){
-		return this.eventRepository;
+		return this.eventRepository.findAll();
 	}
 	
 	public List<Event> findEventByUserAndPeriod(User owner, LocalDateTime startPeriod, LocalDateTime endPeriod){
-		return this.eventRepository.stream()
+		return this.eventRepository.findAll().stream()
 				.filter(event -> event.getOwner().getId().equals(owner.getId()) && hasOverlappingPeriod(event, startPeriod, endPeriod))
 				.collect(Collectors.toList());
 	}
 	
 	public Event findEventById(UUID id) {
-		return this.eventRepository.stream()
-				.filter(event -> event.getId().equals(id)).findFirst().get();
+		return this.eventRepository.findById(id);
 	}
 
 	public void createEvent(Event newEvent) {
 		validate(newEvent);
-		eventRepository.add(newEvent);
+		eventRepository.save(newEvent);
 	}
 	
 	public void updateEvent(Event updatedEvent) {
-		var dbEvent = findEventById(updatedEvent.getId());
-		dbEvent.setName(updatedEvent.getName());
-		validateName(dbEvent);
-		dbEvent.setStartsAt(updatedEvent.getStartsAt());
-		dbEvent.setEndsAt(updatedEvent.getEndsAt());
-
+	    var dbEvent = findEventById(updatedEvent.getId());
+	    if (dbEvent == null) {
+	        throw new IllegalArgumentException("Event not found");
+	    }
+	    dbEvent.setName(updatedEvent.getName());
+	    validateName(dbEvent);
+	    dbEvent.setStartsAt(updatedEvent.getStartsAt());
+	    dbEvent.setEndsAt(updatedEvent.getEndsAt());
 	}
 	
 	private void validate(Event event) {
@@ -51,7 +53,8 @@ public class EventService {
 	}
 	
 	private void validateName(Event event) {
-		if (event.getName() == null || event.getName().isBlank()) throw new IllegalArgumentException("EventName cannot be null nor blank.");
+		if (event.getName() == null || event.getName().isBlank()) 
+			throw new IllegalArgumentException("EventName cannot be null nor blank.");
 	}
 	
 	private void validateFields(Event event) {
