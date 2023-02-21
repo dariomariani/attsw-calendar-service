@@ -63,14 +63,13 @@ public class Program {
 		events.add(event3);
 		// assign events to owner
 		user.setEvents(events);
-		//UserRepository userRepository = new UserRepositoryImpl(entityManagerFactory);
 		UserRepositoryImpl userRepository = new UserRepositoryImpl(entityManagerFactory);
 		EventRepositoryImpl eventRepository = new EventRepositoryImpl(entityManagerFactory);
 		userRepository.save(user);
-		System.out.println("UserID = " + "\n" + user.getId());
+		System.out.println("UserID = " + user.getId());
 		
 		var result = eventRepository.findAll();
-		System.out.println("Events found: " + result.stream().map(Event.class::cast).map(Event::toString).collect(Collectors.joining(", ")));
+		System.out.println("Events found: " + result.stream().map(Event::toString).collect(Collectors.joining(", ")));
 		
 		var resultUser = userRepository.findById(user.getId());
 		System.out.println("Users found: " + resultUser.toString());
