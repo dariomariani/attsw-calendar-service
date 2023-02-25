@@ -144,9 +144,9 @@ public class EventServiceTest {
         // test case where the event is found
         EventService eventService = new EventService(eventRepository);
         eventService.updateEvent(updatedEvent);
-        assertEquals(event.getName(), "Updated Event");
-        assertEquals(event.getStartsAt(), LocalDateTime.of(2023, 2, 23, 11, 0));
-        assertEquals(event.getEndsAt(), LocalDateTime.of(2023, 2, 23, 12, 0));
+        assertEquals("Updated Event", event.getName());
+        assertEquals(LocalDateTime.of(2023, 2, 23, 11, 0), event.getStartsAt());
+        assertEquals(LocalDateTime.of(2023, 2, 23, 12, 0), event.getEndsAt());
         // test case where the event is not found
         // add the test event to the repository
         when(eventRepository.findById(updatedEvent.getId())).thenReturn(null);

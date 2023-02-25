@@ -14,7 +14,7 @@ public abstract class AbstractEntityRepository<T extends BaseEntity> implements 
 	
 	private final EntityManagerFactory entityManagerFactory;
 	
-	public AbstractEntityRepository(EntityManagerFactory entityManagerFactory) {
+	protected AbstractEntityRepository(EntityManagerFactory entityManagerFactory) {
 		this.entityManagerFactory = entityManagerFactory;
 	}
 

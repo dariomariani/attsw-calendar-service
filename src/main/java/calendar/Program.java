@@ -34,7 +34,7 @@ public class Program {
 					try {
 						org.h2.tools.Server.startWebServer(connection);
 					} catch (Exception e) {
-						e.printStackTrace();
+						System.out.println(e.getMessage());
 					}
 
 				}
@@ -77,7 +77,7 @@ public class Program {
 		
 		var resultUser = userRepository.findById(user.getId());
 		System.out.println("Users found: " + resultUser.toString());
-		if (dbProvider.equals("h2")) new Thread(openConsole).run();
+		if (dbProvider.equals("h2")) new Thread(openConsole).start();
 	}
 
 }

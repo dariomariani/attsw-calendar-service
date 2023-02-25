@@ -42,9 +42,10 @@ public class EventService {
 	        throw new IllegalArgumentException("Event not found");
 	    }
 	    dbEvent.setName(updatedEvent.getName());
-	    validateName(dbEvent);
 	    dbEvent.setStartsAt(updatedEvent.getStartsAt());
 	    dbEvent.setEndsAt(updatedEvent.getEndsAt());
+	    validate(dbEvent);
+	    eventRepository.save(dbEvent);
 	}
 	
 	private void validate(Event event) {
