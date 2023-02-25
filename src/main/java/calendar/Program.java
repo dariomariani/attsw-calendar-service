@@ -80,7 +80,7 @@ public class Program {
 		logger.log(Level.INFO, "Events found: {0}", result.stream().map(Event::toString).collect(Collectors.joining(", ")));
 		
 		var resultUser = userRepository.findById(user.getId());
-		logger.log(Level.INFO, "Users found: {0}", resultUser.toString());
+		logger.log(Level.INFO, "Users found: {0}", resultUser);
 		if (dbProvider.equals("h2")) new Thread(openConsole).start();
 	}
 
