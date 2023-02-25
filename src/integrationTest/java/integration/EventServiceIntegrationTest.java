@@ -2,20 +2,16 @@ package integration;
 
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import calendar.Program;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import models.Event;
