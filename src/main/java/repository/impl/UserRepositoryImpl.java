@@ -5,9 +5,8 @@ import java.util.UUID;
 
 import jakarta.persistence.EntityManagerFactory;
 import models.User;
-import repository.UserRepository;
 
-public class UserRepositoryImpl extends AbstractEntityRepository<User> implements UserRepository {
+public class UserRepositoryImpl extends AbstractEntityRepository<User> {
 	
 	public UserRepositoryImpl(EntityManagerFactory entityManagerFactory) {
 		super(entityManagerFactory);
