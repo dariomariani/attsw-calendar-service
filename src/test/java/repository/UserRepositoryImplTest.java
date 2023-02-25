@@ -7,6 +7,9 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
+
 
 import java.util.List;
 import java.util.UUID;
@@ -15,8 +18,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -24,6 +25,7 @@ import jakarta.persistence.Persistence;
 import models.User;
 import repository.impl.UserRepositoryImpl;
 
+@RunWith(MockitoJUnitRunner.class)
 public class UserRepositoryImplTest {
 	
 	private UserRepositoryImpl userRepository;
@@ -44,7 +46,6 @@ public class UserRepositoryImplTest {
 	@Before
 	public void setUp() {
 		entityManagerFactory = Persistence.createEntityManagerFactory("h2");
-		MockitoAnnotations.openMocks(this);
 		userRepository = new UserRepositoryImpl(entityManagerFactory);
 		userRepositoryMocked = new UserRepositoryImpl(entityManagerFactoryMocked);
 	}

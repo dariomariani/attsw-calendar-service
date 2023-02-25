@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -25,10 +26,17 @@ public class UserServiceTest {
 	@Mock
 	private UserRepositoryImpl userRepository;
 	
+	private AutoCloseable closeable;
+	
 	@Before
 	public void setup() {
-		MockitoAnnotations.openMocks(this);
+		closeable = MockitoAnnotations.openMocks(this);
 		this.userService = new UserService(userRepository);
+	}
+	
+	@After
+	public void releaseMocks() throws Exception {
+		closeable.close();
 	}
 
 	@Test

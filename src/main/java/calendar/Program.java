@@ -20,8 +20,8 @@ public class Program {
 
 	public static void main(String[] args) throws SQLException {
 		String dbProvider = System.getProperty("dbprovider");
+		if (dbProvider == null || dbProvider.isEmpty()) dbProvider = "h2";
 		System.out.println("Calendar App is running on " + dbProvider + " ...");
-		// jakarta
 		var entityManagerFactory = Persistence.createEntityManagerFactory(dbProvider);
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		Runnable openConsole = null;
