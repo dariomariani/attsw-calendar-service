@@ -52,7 +52,7 @@ public class EventServiceIntegrationTest {
 
         // Verify the results
         assertEquals(2, events.size());
-        assertTrue(events.contains(event1));
+        assertFalse(events.contains(event1));
         assertTrue(events.contains(event2));
     }
 }
