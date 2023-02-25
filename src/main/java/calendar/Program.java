@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import org.hibernate.Session;
@@ -17,11 +19,13 @@ import repository.impl.EventRepositoryImpl;
 import repository.impl.UserRepositoryImpl;
 
 public class Program {
-
+	
+	private static final Logger logger = Logger.getLogger(Program.class.getName());
+	
 	public static void main(String[] args) throws SQLException {
 		String dbProvider = System.getProperty("dbprovider");
 		if (dbProvider == null || dbProvider.isEmpty()) dbProvider = "h2";
-		System.out.println("Calendar App is running on " + dbProvider + " ...");
+		logger.info("Calendar App is running on " + dbProvider + " ...");
 		var entityManagerFactory = Persistence.createEntityManagerFactory(dbProvider);
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		Runnable openConsole = null;
@@ -34,7 +38,7 @@ public class Program {
 					try {
 						org.h2.tools.Server.startWebServer(connection);
 					} catch (Exception e) {
-						System.out.println(e.getMessage());
+						logger.log(Level.SEVERE, e.getLocalizedMessage());
 					}
 
 				}
@@ -70,13 +74,13 @@ public class Program {
 		UserRepositoryImpl userRepository = new UserRepositoryImpl(entityManagerFactory);
 		EventRepositoryImpl eventRepository = new EventRepositoryImpl(entityManagerFactory);
 		userRepository.save(user);
-		System.out.println("UserID = " + user.getId());
+		logger.info("UserID = " + user.getId());
 		
 		var result = eventRepository.findAll();
-		System.out.println("Events found: " + result.stream().map(Event::toString).collect(Collectors.joining(", ")));
+		logger.info("Events found: " + result.stream().map(Event::toString).collect(Collectors.joining(", ")));
 		
 		var resultUser = userRepository.findById(user.getId());
-		System.out.println("Users found: " + resultUser.toString());
+		logger.info("Users found: " + resultUser.toString());
 		if (dbProvider.equals("h2")) new Thread(openConsole).start();
 	}
 
