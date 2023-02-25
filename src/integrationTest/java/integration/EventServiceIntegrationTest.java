@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -31,18 +32,14 @@ public class EventServiceIntegrationTest {
     private static String dbProvider;
     
     @BeforeClass
-    public static void setDbProvider() {
-    	dbProvider = System.getProperty("DB_PROVIDER");
+    public static void setUp() {
+    	dbProvider = System.getProperty("dbprovider");
     	if (dbProvider == null || dbProvider.isEmpty()) {
-    		logger.info("!!! No DB_PROVIDER found");
+    		logger.info("!!! No dbprovider found");
     		dbProvider = "h2";
     	}
     	logger.info("Running EventServiceIntegrationTest with against DB: " + dbProvider + " ...");
-    }
-
-    @Before
-    public void setup() {
-        // Create an in-memory H2 database
+    	// Create an in-memory H2 database
         entityManagerFactory = Persistence.createEntityManagerFactory(dbProvider);
         
         // Create the repository and service instances
@@ -50,8 +47,9 @@ public class EventServiceIntegrationTest {
         eventService = new EventService(eventRepository);
     }
 
-    @After
-    public void cleanup() {
+
+    @AfterClass
+    public void tearDown() {
         entityManagerFactory.close();
     }
 

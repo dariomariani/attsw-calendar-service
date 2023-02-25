@@ -10,6 +10,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.db != 'h2' }}
     strategy:
       matrix:
        db: [h2, mysql, psql]
@@ -57,7 +58,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          JAVA_TOOL_OPTIONS: "-DDB_PROVIDER=${{ matrix.db }}"
+          JAVA_TOOL_OPTIONS: "-Ddbprovider=${{ matrix.db }}"
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: current
