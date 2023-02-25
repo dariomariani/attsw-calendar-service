@@ -26,9 +26,9 @@ import services.EventService;
 public class EventServiceIntegrationTest {
 	
 	private static final Logger logger = Logger.getLogger(EventServiceIntegrationTest.class.getName());
-    private EntityManagerFactory entityManagerFactory;
-    private EventRepositoryImpl eventRepository;
-    private EventService eventService;
+    private static EntityManagerFactory entityManagerFactory;
+    private static EventRepositoryImpl eventRepository;
+    private static EventService eventService;
     private static String dbProvider;
     
     @BeforeClass
@@ -49,7 +49,7 @@ public class EventServiceIntegrationTest {
 
 
     @AfterClass
-    public void tearDown() {
+    public static void tearDown() {
         entityManagerFactory.close();
     }
 
