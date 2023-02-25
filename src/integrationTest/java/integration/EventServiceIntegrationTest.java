@@ -28,12 +28,12 @@ public class EventServiceIntegrationTest {
     private EntityManagerFactory entityManagerFactory;
     private EventRepositoryImpl eventRepository;
     private EventService eventService;
-    private String dbProvider;
+    private static String dbProvider;
     
     @BeforeClass
-    public void setDbProvider() {
+    public static void setDbProvider() {
     	dbProvider = System.getProperty("DB_PROVIDER");
-    	if (dbProvider.isEmpty() || dbProvider == null) dbProvider = "h2";
+    	if (dbProvider == null || dbProvider.isEmpty()) dbProvider = "h2";
     	logger.info("Running EventServiceIntegrationTest with against DB: " + dbProvider + " ...");
     }
 
