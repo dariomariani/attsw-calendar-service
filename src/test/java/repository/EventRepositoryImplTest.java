@@ -15,8 +15,9 @@ import java.util.UUID;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -25,6 +26,7 @@ import jakarta.persistence.Persistence;
 import models.Event;
 import repository.impl.EventRepositoryImpl;
 
+@RunWith(MockitoJUnitRunner.class)
 public class EventRepositoryImplTest {
 
 	private EventRepositoryImpl eventRepository;
@@ -45,7 +47,6 @@ public class EventRepositoryImplTest {
 	@Before
 	public void setUp() {
 		entityManagerFactory = Persistence.createEntityManagerFactory("h2");
-		MockitoAnnotations.openMocks(this);
 		eventRepository = new EventRepositoryImpl(entityManagerFactory);
 		eventRepositoryMocked = new EventRepositoryImpl(entityManagerFactoryMocked);
 	}

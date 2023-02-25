@@ -2,8 +2,8 @@ package models;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -27,7 +27,7 @@ public class Event extends BaseEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime endsAt;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "owner_id", referencedColumnName = "id")
 	private User owner;
 

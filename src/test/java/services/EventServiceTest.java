@@ -1,8 +1,6 @@
 package services;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
@@ -10,23 +8,23 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import models.Event;
 import models.User;
 import repository.impl.EventRepositoryImpl;
 import testdataset.TestUserDataset;
 
+@RunWith(MockitoJUnitRunner.class)
 public class EventServiceTest {
 	
 	private User standardUser1;
@@ -39,7 +37,6 @@ public class EventServiceTest {
 	public void setup() {
 		this.standardUser1 = new User(TestUserDataset.USERNAME1);
 		this.standardUser2 = new User(TestUserDataset.USERNAME2);
-		MockitoAnnotations.openMocks(this);
 		this.eventService = new EventService(eventRepository);
 	}
 
