@@ -13,6 +13,8 @@ jobs:
     strategy:
       matrix:
        db: [h2, mysql, psql]
+    env:
+      DB_PROVIDER: ${{ matrix.db }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -21,10 +23,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '11'
-          distribution: 'temurin'
-      - name: Set DB Provider environment variable
-        run: |
-          echo "DB_PROVIDER=${{ matrix.db }}" >> $GITHUB_ENV          
+          distribution: 'temurin'         
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:

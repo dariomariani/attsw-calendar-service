@@ -25,7 +25,7 @@ public class Program {
 	public static void main(String[] args) throws SQLException {
 		String dbProvider = System.getProperty("dbprovider");
 		if (dbProvider == null || dbProvider.isEmpty()) dbProvider = "h2";
-		logger.info("Calendar App is running on " + dbProvider + " ...");
+		logger.log(Level.INFO, "Calendar App is running on {0} ...", dbProvider);
 		var entityManagerFactory = Persistence.createEntityManagerFactory(dbProvider);
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		Runnable openConsole = null;
@@ -77,10 +77,10 @@ public class Program {
 		logger.info("UserID = " + user.getId());
 		
 		var result = eventRepository.findAll();
-		logger.info("Events found: " + result.stream().map(Event::toString).collect(Collectors.joining(", ")));
+		logger.log(Level.INFO, "Events found: {0}", result.stream().map(Event::toString).collect(Collectors.joining(", ")));
 		
 		var resultUser = userRepository.findById(user.getId());
-		logger.info("Users found: " + resultUser.toString());
+		logger.log(Level.INFO, "Users found: {0}", resultUser.toString());
 		if (dbProvider.equals("h2")) new Thread(openConsole).start();
 	}
 
