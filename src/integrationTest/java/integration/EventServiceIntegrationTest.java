@@ -7,11 +7,15 @@ import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import calendar.Program;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import models.Event;
@@ -20,23 +24,32 @@ import repository.impl.EventRepositoryImpl;
 import services.EventService;
 
 public class EventServiceIntegrationTest {
-
-    private EntityManagerFactory entityManagerFactory;
-    private EventRepositoryImpl eventRepository;
-    private EventService eventService;
-
-    @Before
-    public void setup() {
-        // Create an in-memory H2 database
-        entityManagerFactory = Persistence.createEntityManagerFactory("h2");
+	
+	private static final Logger logger = Logger.getLogger(EventServiceIntegrationTest.class.getName());
+    private static EntityManagerFactory entityManagerFactory;
+    private static EventRepositoryImpl eventRepository;
+    private static EventService eventService;
+    private static String dbProvider;
+    
+    @BeforeClass
+    public static void setUp() {
+    	dbProvider = System.getProperty("dbprovider");
+    	if (dbProvider == null || dbProvider.isEmpty()) {
+    		logger.info("!!! No dbprovider found");
+    		dbProvider = "h2";
+    	}
+    	logger.info("Running EventServiceIntegrationTest with against DB: " + dbProvider + " ...");
+    	// Create an in-memory H2 database
+        entityManagerFactory = Persistence.createEntityManagerFactory(dbProvider);
         
         // Create the repository and service instances
         eventRepository = new EventRepositoryImpl(entityManagerFactory);
         eventService = new EventService(eventRepository);
     }
 
-    @After
-    public void cleanup() {
+
+    @AfterClass
+    public static void tearDown() {
         entityManagerFactory.close();
     }
 

@@ -10,9 +10,10 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.db != 'h2' }}
     strategy:
       matrix:
-       db: [h2, mysql, postgresql]
+       db: [h2, mysql, psql]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -21,7 +22,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '11'
-          distribution: 'temurin'
+          distribution: 'temurin'         
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
@@ -57,6 +58,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          JAVA_TOOL_OPTIONS: "-Ddbprovider=${{ matrix.db }}"
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: current
