@@ -78,20 +78,28 @@ jacocoTestReport {
 
 sourceSets {
     integrationTest {
-        java.srcDir file('src/it/java')
-        resources.srcDir file('src/it/resources')
-        compileClasspath += sourceSets.main.output + configurations.testCompile
-        runtimeClasspath += output + compileClasspath + configurations.testRuntime
-        output.classesDirs file('$buildDir/classes/integrationTest')
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
     }
 }
 
 configurations {
-    integrationTestCompile.extendsFrom testCompile
-    integrationTestRuntime.extendsFrom testRuntime
+    integrationTestImplementation.extendsFrom implementation
+    integrationTestRuntimeOnly.extendsFrom runtimeOnly
 }
 
-task integrationTest(type: Test) {
+dependencies {
+    integrationTestImplementation 'junit:junit:4.13'
+    integrationTestRuntimeOnly 'org.mockito:mockito-core:3.12.4'
+}
+
+def integrationTest = tasks.register('integrationTest', Test) {
+    description = 'Runs integration tests.'
+    group = 'verification'
+
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
+    shouldRunAfter('test')
 }
+
+tasks.named('check') { dependsOn(integrationTest) }
