@@ -34,7 +34,7 @@ public class EventServiceIntegrationTest {
     public static void setDbProvider() {
     	dbProvider = System.getProperty("DB_PROVIDER");
     	if (dbProvider == null || dbProvider.isEmpty()) dbProvider = "h2";
-    	logger.info("Running EventServiceIntegrationTest with against DB: " + dbProvider + " ...");
+    	System.out.println("Running EventServiceIntegrationTest with against DB: " + dbProvider + " ...");
     }
 
     @Before
