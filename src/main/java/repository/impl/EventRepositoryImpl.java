@@ -5,9 +5,8 @@ import java.util.UUID;
 
 import jakarta.persistence.EntityManagerFactory;
 import models.Event;
-import repository.EventRepository;
 
-public class EventRepositoryImpl extends AbstractEntityRepository<Event> implements EventRepository {
+public class EventRepositoryImpl extends AbstractEntityRepository<Event> {
 
 	public EventRepositoryImpl(EntityManagerFactory entityManagerFactory) {
 		super(entityManagerFactory);

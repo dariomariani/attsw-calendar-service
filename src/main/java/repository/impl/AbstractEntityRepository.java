@@ -37,16 +37,14 @@ public abstract class AbstractEntityRepository<T extends BaseEntity> implements 
 		return entity.getId();
 	}
 	
-	@Override
-	public T findById(UUID id, Class<T> entityType) {
+	protected T findById(UUID id, Class<T> entityType) {
 	    EntityManager entityManager = entityManagerFactory.createEntityManager();
 	    T entity = entityManager.find(entityType, id);
 	    entityManager.close();
 	    return entity;
 	}
 	
-	@Override
-	public List<T> findAll(Class<T> entityType) {
+	protected List<T> findAll(Class<T> entityType) {
 	    EntityManager entityManager = entityManagerFactory.createEntityManager();
 	    String hql = "SELECT e FROM " + entityType.getSimpleName() + " e";
 	    TypedQuery<T> query = entityManager.createQuery(hql, entityType);
