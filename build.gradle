@@ -45,7 +45,7 @@ dependencies {
     if (project.hasProperty("mysql")) {
         implementation 'mysql:mysql-connector-java:8.0.21'
         project.buildDir = 'build/mysql'
-    }else if (project.hasProperty("postgresql")) {
+    }else if (project.hasProperty("psql")) {
         implementation 'org.postgresql:postgresql:42.2.16'
         project.buildDir = 'build/postgresql'
     } else if (project.hasProperty("h2")){

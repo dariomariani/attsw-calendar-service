@@ -7,11 +7,14 @@ import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import calendar.Program;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import models.Event;
@@ -20,15 +23,24 @@ import repository.impl.EventRepositoryImpl;
 import services.EventService;
 
 public class EventServiceIntegrationTest {
-
+	
+	private static final Logger logger = Logger.getLogger(EventServiceIntegrationTest.class.getName());
     private EntityManagerFactory entityManagerFactory;
     private EventRepositoryImpl eventRepository;
     private EventService eventService;
+    private String dbProvider;
+    
+    @BeforeClass
+    public void setDbProvider() {
+    	dbProvider = System.getProperty("DB_PROVIDER");
+    	if (dbProvider.isEmpty() || dbProvider == null) dbProvider = "h2";
+    	logger.info("Running EventServiceIntegrationTest with against DB: " + dbProvider + " ...");
+    }
 
     @Before
     public void setup() {
         // Create an in-memory H2 database
-        entityManagerFactory = Persistence.createEntityManagerFactory("h2");
+        entityManagerFactory = Persistence.createEntityManagerFactory(dbProvider);
         
         // Create the repository and service instances
         eventRepository = new EventRepositoryImpl(entityManagerFactory);
