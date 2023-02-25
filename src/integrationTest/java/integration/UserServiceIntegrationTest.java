@@ -33,7 +33,7 @@ public class UserServiceIntegrationTest {
 			dbProvider = "h2";
 		}
 		logger.info("Running UserServiceIntegrationTest with against DB: " + dbProvider + " ...");
-		entityManagerFactory = Persistence.createEntityManagerFactory(dbProvider");
+		entityManagerFactory = Persistence.createEntityManagerFactory(dbProvider);
 		UserRepositoryImpl userRepository = new UserRepositoryImpl(entityManagerFactory);
 		userService = new UserService(userRepository);
 	}
