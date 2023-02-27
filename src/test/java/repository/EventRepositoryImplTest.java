@@ -3,12 +3,16 @@ package repository;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,6 +27,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 import models.Event;
 import repository.impl.EventRepositoryImpl;
 
@@ -42,6 +47,9 @@ public class EventRepositoryImplTest {
 	@Mock
 	private EntityTransaction transaction;
 	
+	@Mock
+	private TypedQuery<Event> typedQuery;
+	
 	private EventRepositoryImpl eventRepositoryMocked;
 
 	@Before
@@ -58,14 +66,18 @@ public class EventRepositoryImplTest {
 
 	@Test
 	public void testSave() {
-		Event event = new Event();
+		when(entityManagerFactoryMocked.createEntityManager()).thenReturn(entityManager);
+		when(entityManager.getTransaction()).thenReturn(transaction);
+		UUID eventId = UUID.randomUUID();
+;		Event event = new Event(eventId);
 		event.setName("Test Event");
 		event.setStartsAt(LocalDateTime.now());
 		event.setEndsAt(LocalDateTime.now().plusHours(1));
 
-		UUID id = eventRepository.save(event);
+		UUID id = eventRepositoryMocked.save(event);
+		verify(entityManager).close();
 		assertNotNull(id);
-		assertEquals(event.getId(), id);
+		assertEquals(eventId, id);
 	}
 
 	@Test
@@ -84,6 +96,40 @@ public class EventRepositoryImplTest {
 		assertEquals(event.getStartsAt(), foundEvent.getStartsAt());
 		assertEquals(event.getEndsAt(), foundEvent.getEndsAt());
 	}
+	
+	@Test
+	public void testFindByIdThenCloseSession() {
+	    UUID id = UUID.randomUUID();
+	    Event event = new Event(id);
+
+	    when(entityManagerFactoryMocked.createEntityManager()).thenReturn(entityManager);
+	    when(entityManager.find(Event.class, id)).thenReturn(event);
+	    eventRepositoryMocked.findById(id);
+	    verify(entityManager, times(1)).close();
+	}
+	
+	@Test
+	public void testFindAllThenCloseSession() {
+
+	    // Mock the behavior of entityManagerFactory and entityManager
+	    when(entityManagerFactoryMocked.createEntityManager()).thenReturn(entityManager);
+
+	    // Create a mock list of entities
+	    List<Event> mockEntities = new ArrayList<>();
+	    mockEntities.add(new Event());
+	    mockEntities.add(new Event());
+
+	    // Mock the behavior of the TypedQuery object
+	    when(typedQuery.getResultList()).thenReturn(mockEntities);
+	    when(entityManager.createQuery(anyString(), eq(Event.class))).thenReturn(typedQuery);
+
+	    // Call the method under test
+	    eventRepositoryMocked.findAll();
+
+	    // Verify that entityManager.close() is called exactly once
+	    verify(entityManager, times(1)).close();
+	}
+	
 
 	@Test
 	public void testFindAll() {
