@@ -15,6 +15,8 @@ plugins {
     id "com.github.nbaztec.coveralls-jacoco" version "1.2.15"
     //Sonarqube for duplicate lines
     id "org.sonarqube" version "3.5.0.2730"
+    //PITest mutation plugin
+    id "info.solidsoft.pitest" version "1.9.0"
 }
 
 repositories {
@@ -103,3 +105,12 @@ def integrationTest = tasks.register('integrationTest', Test) {
 }
 
 tasks.named('check') { dependsOn(integrationTest) }
+
+build.dependsOn 'pitest'
+
+pitest {
+    targetClasses = ['repository.*', 'services.*', 'utils.*']  //by default "${project.group}.*"
+    threads = 4
+    outputFormats = ['XML', 'HTML']
+    timestampedReports = false
+}

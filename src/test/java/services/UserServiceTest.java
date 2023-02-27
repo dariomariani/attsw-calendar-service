@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.After;
@@ -53,7 +54,8 @@ public class UserServiceTest {
     @Test
     public void testCreateUser() {
         User newUser = new User("John");
-        when(userRepository.findAll()).thenReturn(new ArrayList<>());
+        User existingUser = new User("Jahn");
+        when(userRepository.findAll()).thenReturn(Collections.singletonList(existingUser));
         userService.createUser(newUser);
         verify(userRepository, times(1)).save(newUser);
     }
