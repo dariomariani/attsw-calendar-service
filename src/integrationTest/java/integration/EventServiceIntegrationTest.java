@@ -34,7 +34,7 @@ public class EventServiceIntegrationTest {
     		logger.info("!!! No dbprovider found");
     		dbProvider = "h2";
     	}
-    	logger.info("Running EventServiceIntegrationTest with against DB: " + dbProvider + " ...");
+    	logger.info("Running EventServiceIntegrationTest with DB: " + dbProvider + " ...");
     	// Create an in-memory H2 database
         entityManagerFactory = Persistence.createEntityManagerFactory(dbProvider);
         
