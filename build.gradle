@@ -94,16 +94,24 @@ sourceSets {
         compileClasspath += sourceSets.main.output
         runtimeClasspath += sourceSets.main.output
     }
+    testContainers {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
 }
 
 configurations {
     integrationTestImplementation.extendsFrom implementation
     integrationTestRuntimeOnly.extendsFrom runtimeOnly
+    testContainersImplementation.extendsFrom implementation
+    testContainersRuntimeOnly.extendsFrom runtimeOnly
 }
 
 dependencies {
     integrationTestImplementation 'junit:junit:4.13'
     integrationTestRuntimeOnly 'org.mockito:mockito-core:3.12.4'
+    integrationTestImplementation 'org.slf4j:slf4j-api:1.7.32'
+    integrationTestImplementation 'org.slf4j:slf4j-simple:1.7.36'
 }
 
 def integrationTest = tasks.register('integrationTest', Test) {
@@ -114,6 +122,17 @@ def integrationTest = tasks.register('integrationTest', Test) {
     classpath = sourceSets.integrationTest.runtimeClasspath
     shouldRunAfter test
 }
+
+def testContainers = tasks.register('testContainers', Test) {
+    description = 'Runs containers tests.'
+    group = 'verification'
+
+    testClassesDirs = sourceSets.testContainers.output.classesDirs
+    classpath = sourceSets.testContainers.runtimeClasspath
+    shouldRunAfter integrationTest
+    useJUnitPlatform()
+}
+
 
 tasks.named('check') { dependsOn(integrationTest) }
 

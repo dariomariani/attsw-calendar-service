@@ -1,4 +1,4 @@
-package integration;
+package containers;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
