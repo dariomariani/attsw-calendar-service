@@ -38,7 +38,7 @@ jobs:
       - name: Start containers
         if: ${{ matrix.db != 'h2' }}
         run: |
-          docker-compose -f docker/docker-compose-${{ matrix.db }}.yml up -d
+          docker-compose -f integrationTest/resources/docker/docker-compose-${{ matrix.db }}.yml up -d
       - name: Run Coverage
         if: ${{ matrix.db == 'h2' }} 
         run: |
