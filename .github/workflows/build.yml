@@ -35,6 +35,10 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
+      - name: Start containers
+        if: ${{ matrix.db != 'h2' }}
+        run: |
+          docker-compose -f docker/docker-compose-${{ matrix.db }}.yml up -d
       - name: Run Coverage
         if: ${{ matrix.db == 'h2' }} 
         run: |
