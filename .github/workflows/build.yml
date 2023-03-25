@@ -61,5 +61,5 @@ jobs:
           JAVA_TOOL_OPTIONS: "-Ddbprovider=${{ matrix.db }}"
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: current
+          gradle-version: 8.0.2
           arguments: check build -P${{ matrix.db }} --info
