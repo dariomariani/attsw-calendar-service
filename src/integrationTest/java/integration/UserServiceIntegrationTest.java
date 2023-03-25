@@ -21,11 +21,10 @@ public class UserServiceIntegrationTest {
 	private static final Logger logger = Logger.getLogger(UserServiceIntegrationTest.class.getName());
 	private static EntityManagerFactory entityManagerFactory;
 	private static UserService userService;
-	private static String dbProvider;
 
 	@BeforeClass
 	public static void setUp() {
-		dbProvider = System.getProperty("dbprovider");
+		String dbProvider = System.getProperty("dbprovider");
 		if (dbProvider == null || dbProvider.isEmpty()) {
 			logger.info("!!! No dbprovider found");
 			dbProvider = "h2";

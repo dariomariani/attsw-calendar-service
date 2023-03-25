@@ -1,35 +1,27 @@
 package repository;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-import org.junit.After;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+import models.Event;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.TypedQuery;
-import models.Event;
 import repository.impl.EventRepositoryImpl;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
+import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EventRepositoryImplTest {
@@ -37,7 +29,7 @@ public class EventRepositoryImplTest {
 	private EventRepositoryImpl eventRepository;
 	
 	@Mock
-	private EntityManagerFactory entityManagerFactoryMocked;
+	private EntityManagerFactory entityManagerFactory;
 	
 	@Mock
 	private EntityManager entityManager;
@@ -51,15 +43,15 @@ public class EventRepositoryImplTest {
 
 	@Before
 	public void setUp() {
-		eventRepository = new EventRepositoryImpl(entityManagerFactoryMocked);
+		eventRepository = new EventRepositoryImpl(entityManagerFactory);
 	}
 
 	@Test
 	public void testSave() {
-		when(entityManagerFactoryMocked.createEntityManager()).thenReturn(entityManager);
+		when(entityManagerFactory.createEntityManager()).thenReturn(entityManager);
 		when(entityManager.getTransaction()).thenReturn(transaction);
 		UUID eventId = UUID.randomUUID();
-;		Event event = new Event(eventId);
+		Event event = new Event(eventId);
 		event.setName("Test Event");
 		event.setStartsAt(LocalDateTime.now());
 		event.setEndsAt(LocalDateTime.now().plusHours(1));
@@ -72,12 +64,17 @@ public class EventRepositoryImplTest {
 
 	@Test
 	public void testFindById() {
-		Event event = new Event();
+		when(entityManagerFactory.createEntityManager()).thenReturn(entityManager);
+		when(entityManager.getTransaction()).thenReturn(transaction);
+		UUID id = UUID.randomUUID();
+		Event event = new Event(id);
 		event.setName("Test Event");
 		event.setStartsAt(LocalDateTime.of(2023, 3, 13, 18, 0));
 		event.setEndsAt(LocalDateTime.of(2023, 3, 13, 18, 0));
 
-		UUID id = eventRepository.save(event);
+		when(entityManager.find(Event.class, id)).thenReturn(event);
+
+		eventRepository.save(event);
 		Event foundEvent = eventRepository.findById(id);
 
 		assertNotNull(foundEvent);
@@ -92,7 +89,7 @@ public class EventRepositoryImplTest {
 	    UUID id = UUID.randomUUID();
 	    Event event = new Event(id);
 
-	    when(entityManagerFactoryMocked.createEntityManager()).thenReturn(entityManager);
+	    when(entityManagerFactory.createEntityManager()).thenReturn(entityManager);
 	    when(entityManager.find(Event.class, id)).thenReturn(event);
 	    eventRepository.findById(id);
 	    verify(entityManager, times(1)).close();
@@ -102,7 +99,7 @@ public class EventRepositoryImplTest {
 	public void testFindAllThenCloseSession() {
 
 	    // Mock the behavior of entityManagerFactory and entityManager
-	    when(entityManagerFactoryMocked.createEntityManager()).thenReturn(entityManager);
+	    when(entityManagerFactory.createEntityManager()).thenReturn(entityManager);
 
 	    // Create a mock list of entities
 	    List<Event> mockEntities = new ArrayList<>();
@@ -123,17 +120,24 @@ public class EventRepositoryImplTest {
 
 	@Test
 	public void testFindAll() {
-		Event event1 = new Event();
+		when(entityManagerFactory.createEntityManager()).thenReturn(entityManager);
+		when(entityManager.createQuery(anyString(), eq(Event.class))).thenReturn(typedQuery);
+		when(entityManager.getTransaction()).thenReturn(transaction);
+		UUID id1 = UUID.randomUUID();
+		UUID id2 = UUID.randomUUID();
+		Event event1 = new Event(id1);
 		event1.setName("Test Event 1");
 		event1.setStartsAt(LocalDateTime.now());
 		event1.setEndsAt(LocalDateTime.now().plusHours(1));
-		UUID id1 = eventRepository.save(event1);
+		eventRepository.save(event1);
 
-		Event event2 = new Event();
+		Event event2 = new Event(id2);
 		event2.setName("Test Event 2");
 		event2.setStartsAt(LocalDateTime.now().plusDays(1));
 		event2.setEndsAt(LocalDateTime.now().plusDays(1).plusHours(2));
-		UUID id2 = eventRepository.save(event2);
+		eventRepository.save(event2);
+
+		when(typedQuery.getResultList()).thenReturn(Arrays.asList(event1, event2));
 
 		List<Event> allEvents = eventRepository.findAll();
 		assertEquals(2, allEvents.size());
@@ -145,7 +149,7 @@ public class EventRepositoryImplTest {
 	public void testSaveRollbackOnException() {
 		// Arrange
 		Event event = new Event();
-		when(entityManagerFactoryMocked.createEntityManager()).thenReturn(entityManager);
+		when(entityManagerFactory.createEntityManager()).thenReturn(entityManager);
 		when(entityManager.getTransaction()).thenReturn(transaction);
 		when(transaction.isActive()).thenReturn(true);
 		doThrow(RuntimeException.class).when(entityManager).persist(event);

@@ -11,14 +11,13 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import models.User;
-import testdataset.TestUserDataset;
 
 @RunWith(Parameterized.class)
 public class UserTest {
 	
-	private Object input1;
-	private Object input2;
-	private boolean expected;
+	private final Object input1;
+	private final Object input2;
+	private final boolean expected;
 	
 	public UserTest(Object input1, Object input2, boolean expected) {
 		this.input1 = input1;
@@ -28,8 +27,8 @@ public class UserTest {
 
 	@Parameters()
 	public static Collection<Object[]> data() {
-		var user1 = new User(TestUserDataset.USERNAME1);
-		var user2 = new User(TestUserDataset.USERNAME2);
+		var user1 = new User("John");
+		var user2 = new User("Jane");
 		return Arrays.asList(new Object[][] {
 			{user1, user1, true},
 			{user1, user2, false},

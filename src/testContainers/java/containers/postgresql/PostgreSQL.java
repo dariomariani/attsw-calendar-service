@@ -3,10 +3,7 @@ package containers.postgresql;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import models.User;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import repository.impl.UserRepositoryImpl;
@@ -20,8 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import static org.junit.Assert.assertEquals;
-
 public class PostgreSQL {
 
     private static final String IMAGE_NAME = "postgres:13-alpine";
@@ -33,8 +28,6 @@ public class PostgreSQL {
     private static int HOST_PORT;
 
     private static final Logger logger = Logger.getLogger(PostgreSQL.class.getName());
-
-    private static EntityManagerFactory entityManagerFactory;
 
     private static UserService userService;
 
@@ -51,7 +44,7 @@ public class PostgreSQL {
 
     @BeforeEach
     public void initHibernate() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("psql", getPsqlPersistenceUnit(HOST_PORT));
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("psql", getPsqlPersistenceUnit(HOST_PORT));
         logger.info("@@@ Properties: " + entityManagerFactory.getProperties());
         UserRepositoryImpl userRepository = new UserRepositoryImpl(entityManagerFactory);
         userService = new UserService(userRepository);
@@ -82,7 +75,7 @@ public class PostgreSQL {
     public void testConnection() throws SQLException {
         Connection connection = DriverManager.getConnection(postgresqlContainer.getJdbcUrl(), postgresqlContainer.getUsername(),
                 postgresqlContainer.getPassword());
-        assertEquals("calendar", connection.getCatalog());
+        Assertions.assertEquals("calendar", connection.getCatalog());
     }
 
     @Test
@@ -96,12 +89,12 @@ public class PostgreSQL {
         List<User> users = userService.findAll();
 
         // Assert
-        assertEquals(initialSize + 1, users.size());
-        assertEquals(newUser, users.get(users.size() - 1));
+        Assertions.assertEquals(initialSize + 1, users.size());
+        Assertions.assertEquals(newUser, users.get(users.size() - 1));
     }
 
     @Test
     public void testEmptyDatabase() {
-        assertEquals(0, userService.findAll().size());
+        Assertions.assertEquals(0, userService.findAll().size());
     }
 }

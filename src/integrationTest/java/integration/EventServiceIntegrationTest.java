@@ -23,13 +23,11 @@ public class EventServiceIntegrationTest {
 	
 	private static final Logger logger = Logger.getLogger(EventServiceIntegrationTest.class.getName());
     private static EntityManagerFactory entityManagerFactory;
-    private static EventRepositoryImpl eventRepository;
     private static EventService eventService;
-    private static String dbProvider;
-    
+
     @BeforeClass
     public static void setUp() {
-    	dbProvider = System.getProperty("dbprovider");
+        String dbProvider = System.getProperty("dbprovider");
     	if (dbProvider == null || dbProvider.isEmpty()) {
     		logger.info("!!! No dbprovider found");
     		dbProvider = "h2";
@@ -38,7 +36,7 @@ public class EventServiceIntegrationTest {
         entityManagerFactory = Persistence.createEntityManagerFactory(dbProvider);
         
         // Create the repository and service instances
-        eventRepository = new EventRepositoryImpl(entityManagerFactory);
+        EventRepositoryImpl eventRepository = new EventRepositoryImpl(entityManagerFactory);
         eventService = new EventService(eventRepository);
     }
 
