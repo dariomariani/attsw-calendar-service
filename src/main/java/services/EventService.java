@@ -11,7 +11,7 @@ import repository.impl.EventRepositoryImpl;
 import utils.DateTimeUtil;
 public class EventService {
 
-	private EventRepositoryImpl eventRepository;
+	private final EventRepositoryImpl eventRepository;
 	
 	public EventService(EventRepositoryImpl eventRepository) {
 		this.eventRepository = eventRepository;

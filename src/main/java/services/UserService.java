@@ -7,7 +7,7 @@ import repository.impl.UserRepositoryImpl;
 
 public class UserService {
 	
-	private UserRepositoryImpl userRepository;
+	private final UserRepositoryImpl userRepository;
 	
 	
 	public UserService(UserRepositoryImpl userRepository) {
