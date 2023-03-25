@@ -5,7 +5,7 @@ on:
       - develop
       - master
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [ opened, synchronize, reopened ]
 jobs:
   build:
     name: Build
@@ -13,8 +13,17 @@ jobs:
     continue-on-error: ${{ matrix.db != 'h2' }}
     strategy:
       matrix:
-       db: [h2, mysql, psql]
+        db: [ h2, mysql, psql ]
     steps:
+      - name: Cache Docker images
+        uses: actions/cache@v2
+        with:
+          path: |
+            /root/.docker
+          key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
+            ${{ runner.os }}-
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
@@ -22,7 +31,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '11'
-          distribution: 'temurin'         
+          distribution: 'temurin'
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
@@ -35,8 +44,12 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
+      - name: Start containers
+        if: ${{ matrix.db != 'h2' }}
+        run: |
+          docker-compose -f ${{ github.workspace }}/src/integrationTest/resources/docker/docker-compose-${{ matrix.db }}.yml up -d
       - name: Run Coverage
-        if: ${{ matrix.db == 'h2' }} 
+        if: ${{ matrix.db == 'h2' }}
         run: |
           chmod +x gradlew
           ./gradlew jacocoTestReport
@@ -52,7 +65,7 @@ jobs:
       - name: Test and Publish Coverage
         if: ${{ matrix.db == 'h2' }}
         env:
-            COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
         run: ./gradlew test jacocoTestReport coverallsJacoco
       - name: Build and analyze
         env:
@@ -61,5 +74,5 @@ jobs:
           JAVA_TOOL_OPTIONS: "-Ddbprovider=${{ matrix.db }}"
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: current
+          gradle-version: 8.0.2
           arguments: check build -P${{ matrix.db }} --info

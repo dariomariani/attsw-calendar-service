@@ -1,4 +1,4 @@
-package testutil;
+package utils;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,9 +13,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import utils.DateTimeUtil;
 @RunWith(Parameterized.class)
-public class TestDateTimeUtil {
+public class DateTimeUtilTest {
 	
 	private LocalDateTime startDate;
 	private LocalDateTime endDate;
@@ -25,7 +24,7 @@ public class TestDateTimeUtil {
 	
 	
 	
-	public TestDateTimeUtil(LocalDateTime startDate, String expectedFormat,LocalDateTime endDate, LocalDateTime expectedDate, boolean expectedResult) {
+	public DateTimeUtilTest(LocalDateTime startDate, String expectedFormat,LocalDateTime endDate, LocalDateTime expectedDate, boolean expectedResult) {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.expectedDate = expectedDate;

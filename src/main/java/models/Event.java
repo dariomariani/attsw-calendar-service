@@ -2,6 +2,7 @@ package models;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -36,6 +37,17 @@ public class Event extends BaseEntity {
 		this.startsAt = startsAt;
 		this.owner = owner;
 		this.endsAt = endsAt;
+	}
+	
+	public Event(UUID id, String name, User owner, LocalDateTime startsAt, LocalDateTime endsAt) {
+		this.name = name;
+		this.startsAt = startsAt;
+		this.owner = owner;
+		this.endsAt = endsAt;
+	}
+	
+	public Event(UUID id) {
+		this.id = id;
 	}
 	
 	public Event() {

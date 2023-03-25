@@ -13,8 +13,6 @@ import models.User;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.function.ThrowingRunnable;
-
 import repository.impl.UserRepositoryImpl;
 import services.UserService;
 
@@ -32,7 +30,7 @@ public class UserServiceIntegrationTest {
 			logger.info("!!! No dbprovider found");
 			dbProvider = "h2";
 		}
-		logger.info("Running UserServiceIntegrationTest with against DB: " + dbProvider + " ...");
+		logger.info("Running UserServiceIntegrationTest with DB: " + dbProvider + " ...");
 		entityManagerFactory = Persistence.createEntityManagerFactory(dbProvider);
 		UserRepositoryImpl userRepository = new UserRepositoryImpl(entityManagerFactory);
 		userService = new UserService(userRepository);
@@ -65,11 +63,7 @@ public class UserServiceIntegrationTest {
 		userService.createUser(newUser);
 
 		// Act & Assert
-		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, new ThrowingRunnable() {
-			public void run() throws Throwable {
-				userService.createUser(newUser);
-			}
-		});
+		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> userService.createUser(newUser));
 		assertEquals("A User with the Username janedoe already exists.", exception.getMessage());
 	}
 

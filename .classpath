@@ -3,42 +3,381 @@
 	<classpathentry kind="src" output="bin/main" path="src/main/java">
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="gradle_used_by_scope" value="main,test,integrationTest"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" output="bin/main" path="src/main/resources">
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="gradle_used_by_scope" value="main,test,integrationTest"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" output="bin/test" path="src/test/java">
 		<attributes>
-			<attribute name="test" value="true"/>
 			<attribute name="gradle_scope" value="test"/>
 			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" output="bin/test" path="src/test/resources">
 		<attributes>
-			<attribute name="test" value="true"/>
 			<attribute name="gradle_scope" value="test"/>
 			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="bin/it" path="src/it/java">
-	<attributes>
-			<attribute name="it" value="true"/>
+	<classpathentry kind="src" output="bin/integrationTest" path="src/integrationTest/java">
+		<attributes>
 			<attribute name="gradle_scope" value="integrationTest"/>
 			<attribute name="gradle_used_by_scope" value="integrationTest"/>
+			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11/">
+	<classpathentry kind="src" output="bin/integrationTest" path="src/integrationTest/resources">
 		<attributes>
-			<attribute name="module" value="true"/>
+			<attribute name="gradle_scope" value="integrationTest"/>
+			<attribute name="gradle_used_by_scope" value="integrationTest"/>
+			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" output="bin/testContainers" path="src/testContainers/java">
+    		<attributes>
+    			<attribute name="gradle_scope" value="testContainers"/>
+    			<attribute name="gradle_used_by_scope" value="testContainers"/>
+    			<attribute name="test" value="true"/>
+    		</attributes>
+    	</classpathentry>
+    	<classpathentry kind="src" output="bin/testContainers" path="src/testContainers/resources">
+    		<attributes>
+    			<attribute name="gradle_scope" value="testContainers"/>
+    			<attribute name="gradle_used_by_scope" value="testContainers"/>
+    			<attribute name="test" value="true"/>
+    		</attributes>
+    	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11/"/>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.apache.commons/commons-math3/3.6.1/e4ba98f1d4b3c80ec46392f25e094a6a2e58fcbf/commons-math3-3.6.1.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.apache.commons/commons-math3/3.6.1/8fab23986ea8886af34818daf32a718e81dc98ba/commons-math3-3.6.1-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.google.guava/guava/29.0-jre/801142b4c3d0f0770dd29abea50906cacfddd447/guava-29.0-jre.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.google.guava/guava/29.0-jre/33e6868bc0fcb9b4b493123eeec78d1352934e87/guava-29.0-jre-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/commons-beanutils/commons-beanutils/1.9.4/d52b9abcd97f38c81342bb7e7ae1eee9b73cba51/commons-beanutils-1.9.4.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/commons-beanutils/commons-beanutils/1.9.4/f00e0ba867d1810f255876631ab440e0725a9af0/commons-beanutils-1.9.4-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.hibernate.javax.persistence/hibernate-jpa-2.1-api/1.0.0.Final/5e731d961297e5a07290bfaf3db1fbc8bbbf405a/hibernate-jpa-2.1-api-1.0.0.Final.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.hibernate.javax.persistence/hibernate-jpa-2.1-api/1.0.0.Final/33fbaa7276b774ef0925f541640f6ff23fbc62dc/hibernate-jpa-2.1-api-1.0.0.Final-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/javax.persistence/javax.persistence-api/2.2/25665ac8c0b62f50e6488173233239120fc52c96/javax.persistence-api-2.2.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/javax.persistence/javax.persistence-api/2.2/462dff65f6f8bde02ee9d8afe07fe9d50268199c/javax.persistence-api-2.2-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/mysql/mysql-connector-java/8.0.21/53fd3a0887667aae7e40a3439fff2d03d93ec4c2/mysql-connector-java-8.0.21.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/mysql/mysql-connector-java/8.0.21/7878429c883524323db6adaa8ea076067e060609/mysql-connector-java-8.0.21-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.postgresql/postgresql/42.2.16/a9ee12f737bd5dc7d046e4c065e391d38d6a3cfc/postgresql-42.2.16.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.postgresql/postgresql/42.2.16/cccf77b37612355113b3a798e2c5200cf998bbe3/postgresql-42.2.16-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.h2database/h2/1.4.200/f7533fe7cb8e99c87a43d325a77b4b678ad9031a/h2-1.4.200.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.h2database/h2/1.4.200/3b5883b7a5a05b932c699760f0854ca565785a84/h2-1.4.200-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.testcontainers/junit-jupiter/1.17.6/94e9894bc665909e208959390ea6540309ce231e/junit-jupiter-1.17.6.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.testcontainers/junit-jupiter/1.17.6/fe48df85aa116a2c0b8e8716238fe13cd4f8cc16/junit-jupiter-1.17.6-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.testcontainers/postgresql/1.16.0/ff004be81a0bf47782f8aea1850e75d9ff6d6947/postgresql-1.16.0.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.testcontainers/postgresql/1.16.0/c94261b320ae880d82533b50f9e4916c2f7da7dc/postgresql-1.16.0-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.testcontainers/mysql/1.16.0/89790af99514933733a725ae44c11dcf42b0736c/mysql-1.16.0.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.testcontainers/mysql/1.16.0/f279d861e8e35a0b70f13c7653103fbd0fb23eda/mysql-1.16.0-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.testcontainers/jdbc/1.16.0/e8944bf51792a412efec563ba3763e73a75e4daf/jdbc-1.16.0.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.testcontainers/jdbc/1.16.0/97f4b43278b474febb79daf0581947167cf09f99/jdbc-1.16.0-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.testcontainers/database-commons/1.16.0/b3cb5a2d3e7a2a5b4b4fa2394644fc46a0ff8862/database-commons-1.16.0.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.testcontainers/database-commons/1.16.0/6cb4dc76dcc59290a02ac73e21760aee636762bc/database-commons-1.16.0-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.testcontainers/testcontainers/1.17.6/11b28972d2d8bddd5a7d3b6e21016fbe13bc8e8b/testcontainers-1.17.6.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.testcontainers/testcontainers/1.17.6/576397836e9b5da8ad195f4676f699a3768837a0/testcontainers-1.17.6-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.google.guava/failureaccess/1.0.1/1dcf1de382a0bf95a3d8b0849546c88bac1292c9/failureaccess-1.0.1.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.google.guava/failureaccess/1.0.1/1d064e61aad6c51cc77f9b59dc2cccc78e792f5a/failureaccess-1.0.1-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.google.guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/b421526c5f297295adef1c886e5246c39d4ac629/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/b19b5927c2c25b6c70f093767041e641ae0b1b35/jsr305-3.0.2-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.checkerframework/checker-qual/2.11.1/8c43bf8f99b841d23aadda6044329dad9b63c185/checker-qual-2.11.1.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.checkerframework/checker-qual/2.11.1/81dbb91c8dc3c53ae7066ce9e70ed7efb0551261/checker-qual-2.11.1-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.3.4/dac170e4594de319655ffb62f41cbd6dbb5e601e/error_prone_annotations-2.3.4.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.3.4/950adf6dcd7361e3d1e544a6e13b818587f95d14/error_prone_annotations-2.3.4-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.google.j2objc/j2objc-annotations/1.3/ba035118bc8bac37d7eff77700720999acd9986d/j2objc-annotations-1.3.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.google.j2objc/j2objc-annotations/1.3/d26c56180205cbb50447c3eca98ecb617cf9f58b/j2objc-annotations-1.3-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/4bfc12adfe4842bf07b657f0369c4cb522955686/commons-logging-1.2.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/ecf26c7507d67782a3bbd148d170b31dfad001aa/commons-logging-1.2-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/commons-collections/commons-collections/3.2.2/8ad72fe39fa8c91eaaf12aadb21e0c3661fe26d5/commons-collections-3.2.2.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/commons-collections/commons-collections/3.2.2/78c50ebda5784937ca1615fc0e1d0cb35857d572/commons-collections-3.2.2-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.hibernate.orm/hibernate-core/6.1.6.Final/e2ff7dfc50d16377da7bedbf48a0a2e9db30ac66/hibernate-core-6.1.6.Final.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.hibernate.orm/hibernate-core/6.1.6.Final/9a6502f8464702d8aa0fb4b798f37b5bb2175c76/hibernate-core-6.1.6.Final-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/3.11.4/7ec0925cc3aef0335bbc7d57edfd42b0f86f8267/protobuf-java-3.11.4.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/3.11.4/1e3a86dde8ecf9410e23f22a67ad062316fe94a/protobuf-java-3.11.4-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/junit/junit/4.13.2/8ac9e16d933b6fb43bc7f576336b8f4d7eb5ba12/junit-4.13.2.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/junit/junit/4.13.2/33987872a811fe4d4001ed494b07854822257f42/junit-4.13.2-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.github.docker-java/docker-java-api/3.2.13/5817ef8f770cb7e740d590090bf352df9491f3c1/docker-java-api-3.2.13.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.github.docker-java/docker-java-api/3.2.13/a9276a150f5b4328c297377867edec741c88d31a/docker-java-api-3.2.13-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.github.docker-java/docker-java-transport-zerodep/3.2.13/4cbc2c09d6c264767a39624066987ed4a152bc68/docker-java-transport-zerodep-3.2.13.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.github.docker-java/docker-java-transport-zerodep/3.2.13/30542e350ec0c98200ef394c3dba3e35908d9084/docker-java-transport-zerodep-3.2.13-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.36/6c62681a2f655b49963a5983b8b0950a6120ae14/slf4j-api-1.7.36.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.36/ae9c1aae0033af915cfa75d850eb9d880f21a701/slf4j-api-1.7.36-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.22/691a8b4e6cf4248c3bc72c8b719337d5cb7359fa/commons-compress-1.22.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.22/d73e9ed4b8f7b8ef3ba68f1064154e281d22f1b2/commons-compress-1.22-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.rnorth.duct-tape/duct-tape/1.0.8/92edc22a9ab2f3e17c9bf700aaee377d50e8b530/duct-tape-1.0.8.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.rnorth.duct-tape/duct-tape/1.0.8/cf14d77239dd2a6fe0e03a2e8f29c6a80373be1/duct-tape-1.0.8-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/1.9.1/3145f821b5cd10abcdc5f925baa5fffa6f1b628f/junit-platform-commons-1.9.1.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/1.9.1/5d2f1078b36f69b0cbacc1efdbf073517c0c7d33/junit-platform-commons-1.9.1-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-api/5.9.1/7bb53fbc0173e9f6a9d21d58297af94b1f2f9ce1/junit-jupiter-api-5.9.1.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-api/5.9.1/ba8516b330a32b4957cdc6ad0cd1a594ec154fd2/junit-jupiter-api-5.9.1-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/jakarta.persistence/jakarta.persistence-api/3.0.0/affc7884a85b6876d438a88b5d21ea29b1cc2dd8/jakarta.persistence-api-3.0.0.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/jakarta.persistence/jakarta.persistence-api/3.0.0/cc7a3dd5b8f5a0277c34a6d89429d2085df0da6c/jakarta.persistence-api-3.0.0-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/jakarta.transaction/jakarta.transaction-api/2.0.0/24a0525b4acfbca4086d2f1278be3a084fe1c67d/jakarta.transaction-api-2.0.0.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/jakarta.transaction/jakarta.transaction-api/2.0.0/a4de8d5c97201188f2385cdd711296d073a6e719/jakarta.transaction-api-2.0.0-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.opentest4j/opentest4j/1.2.0/28c11eb91f9b6d8e200631d46e20a7f407f2a046/opentest4j-1.2.0.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.opentest4j/opentest4j/1.2.0/41d55b3c2254de9837b4ec8923cbd371b8a7eab5/opentest4j-1.2.0-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.apiguardian/apiguardian-api/1.1.2/a231e0d844d2721b0fa1b238006d15c6ded6842a/apiguardian-api-1.1.2.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.apiguardian/apiguardian-api/1.1.2/e0787a997746ac32639e0bf3cb27af8dce8a3428/apiguardian-api-1.1.2-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/1dc37250fbc78e23a65a67fbbaf71d2e9cbc3c0b/hamcrest-core-1.3-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.jetbrains/annotations/17.0.0/8ceead41f4e71821919dbdb7a9847608f1a938cb/annotations-17.0.0.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.jetbrains/annotations/17.0.0/c4824e1e82f2783838485a3536db0b8f4d53aa95/annotations-17.0.0-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.10.3/f63b3b1da563767d04d2e4d3fc1ae0cdeffebe7/jackson-annotations-2.10.3.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.10.3/a52bf9c42cb6a029577d0d701785a07554675713/jackson-annotations-2.10.3-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.github.docker-java/docker-java-transport/3.2.13/e9d308d1822181a9d48c99739f5eca014ec89199/docker-java-transport-3.2.13.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.github.docker-java/docker-java-transport/3.2.13/4fd8dc88ce1f7ce1667c55bcd23ed4a2d850486e/docker-java-transport-3.2.13-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/net.java.dev.jna/jna/5.8.0/3551d8d827e54858214107541d3aff9c615cb615/jna-5.8.0.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/net.java.dev.jna/jna/5.8.0/2401f953c4234333699632298c8119bcf5ea9194/jna-5.8.0-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.checkerframework/checker-qual/3.5.0/2f50520c8abea66fbd8d26e481d3aef5c673b510/checker-qual-3.5.0.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.checkerframework/checker-qual/3.5.0/acb4745ac343906cd39f9b3776db0e56f251ae6e/checker-qual-3.5.0-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.4.3.Final/c4bd7e12a745c0e7f6cf98c45cdcdf482fd827ea/jboss-logging-3.4.3.Final.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.4.3.Final/85e076a2f4d153c57f4dc414e7212a1b1e1a29fd/jboss-logging-3.4.3.Final-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.hibernate.common/hibernate-commons-annotations/6.0.2.Final/fa5a14ef3d2e5c3c99b53a4bef756a3268d69187/hibernate-commons-annotations-6.0.2.Final.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.hibernate.common/hibernate-commons-annotations/6.0.2.Final/ac939469ee6f9cdbaaa9c1c786a6d56454d8957d/hibernate-commons-annotations-6.0.2.Final-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.jboss/jandex/2.4.2.Final/1e1c385990b258ff1a24c801e84aebbacf70eb39/jandex-2.4.2.Final.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.jboss/jandex/2.4.2.Final/798180cc939fc34e3fc6b7e7771f9bde1c63d14a/jandex-2.4.2.Final-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.fasterxml/classmate/1.5.1/3fe0bed568c62df5e89f4f174c101eab25345b6c/classmate-1.5.1.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.fasterxml/classmate/1.5.1/504edac38ff03cc5ce1d0391abb1416ffad58a99/classmate-1.5.1-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.12.18/875a9c3f29d2f6f499dfd60d76e97a343f9b1233/byte-buddy-1.12.18.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.12.18/f11ab5e3b584076fad2ddf723e09b0ea0d8f34ac/byte-buddy-1.12.18-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.glassfish.jaxb/jaxb-runtime/3.0.2/9897322f5de201bfbfcd1f4f46ffdd4204673b3c/jaxb-runtime-3.0.2.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.glassfish.jaxb/jaxb-runtime/3.0.2/273363d394a267af3da375fa55008da1730da22f/jaxb-runtime-3.0.2-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.glassfish.jaxb/jaxb-core/3.0.2/e83d0b0005525ddd8b8642bd0bb02227fcf871f1/jaxb-core-3.0.2.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.glassfish.jaxb/jaxb-core/3.0.2/298ae63678dfd3009c43fd2ace19b11ee58397b1/jaxb-core-3.0.2-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/jakarta.xml.bind/jakarta.xml.bind-api/3.0.1/5257932df36ff3e4e6de50429dde946490a6a800/jakarta.xml.bind-api-3.0.1.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/jakarta.xml.bind/jakarta.xml.bind-api/3.0.1/571809ee9b4a6d9de6a2991e8c4c9bbc7d1f7418/jakarta.xml.bind-api-3.0.1-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/jakarta.inject/jakarta.inject-api/2.0.0/46fc8560b6fd17b78396d88f39c1a730457671f0/jakarta.inject-api-2.0.0.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/jakarta.inject/jakarta.inject-api/2.0.0/2ebdf75142c72a7d9e0611ad8117eba79866d630/jakarta.inject-api-2.0.0-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.10.1/10839f875928f59c622d675091d51a43ea0dc5f7/antlr4-runtime-4.10.1.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.10.1/a5214c71b2fa1d776d69674bf75eeb3f1fee8a62/antlr4-runtime-4.10.1-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.sun.activation/jakarta.activation/2.0.1/828b80e886a52bb09fe41ff410b10b342f533ce1/jakarta.activation-2.0.1.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.sun.activation/jakarta.activation/2.0.1/5204fb651a74c03463d3e587f37c92c3506272e7/jakarta.activation-2.0.1-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.glassfish.jaxb/txw2/3.0.2/8c448a44cdcdbb5dd48ff2eb88cab858ed52cf91/txw2-3.0.2.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.glassfish.jaxb/txw2/3.0.2/6e4d2479272e6e9b4d7ff1cf990d43cd2bdbf861/txw2-3.0.2-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.sun.istack/istack-commons-runtime/4.0.1/4e25c41d338aad4a2c92d0020c9ae0335fad5099/istack-commons-runtime-4.0.1.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/com.sun.istack/istack-commons-runtime/4.0.1/da74af4c1ba806b84de906987efb17fd1a56b830/istack-commons-runtime-4.0.1-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="testContainers,integrationTest,main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.mockito/mockito-core/3.12.4/f9cdc14ea4a3573c0c0366d47d5ca960be24ddb6/mockito-core-3.12.4.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.mockito/mockito-core/3.12.4/222b2c98c13ac7b0c1b2eca53b26a4cf66e1ef96/mockito-core-3.12.4-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="integrationTest,test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-params/5.9.1/ffcd1013edaeee112be11fcddeb38882d79238de/junit-jupiter-params-5.9.1.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-params/5.9.1/f48e6a3bc9ac5acdde88951f83beb44adc78c8c5/junit-jupiter-params-5.9.1-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter/5.9.1/9274d3757e224bc02eae367bd481062a263c150b/junit-jupiter-5.9.1.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter/5.9.1/5fd01c33132462aab3905cb74bd1097a713ab91a/junit-jupiter-5.9.1-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.11.13/a85d4d74de5ce7a4dd5cbbd337ced6af2740acd/byte-buddy-1.11.13.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.11.13/38a37af15b5d677e7443677c7306e0c4ddb7406e/byte-buddy-1.11.13-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.11.13/8c7aaa0ef9863fa89a711bfc5d8e2e0affa0d67f/byte-buddy-agent-1.11.13.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.11.13/286cb8f98dd92c2b41c0c832e3bfd1d0dac24c94/byte-buddy-agent-1.11.13-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="integrationTest,test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.objenesis/objenesis/3.2/7fadf57620c8b8abdf7519533e5527367cb51f09/objenesis-3.2.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.objenesis/objenesis/3.2/9f5da90020a255f25b6d8da8db273e2d38ce9805/objenesis-3.2-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="integrationTest,test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-engine/5.9.1/1bf771097bde296c3ab174861954e8aafaaf2e94/junit-jupiter-engine-5.9.1.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-engine/5.9.1/bc082b8e8a1f40d6846fccb59867c6524bf08155/junit-jupiter-engine-5.9.1-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/1.9.1/83591e5089d6cea5f324aa3ecca9b19d5a275803/junit-platform-engine-1.9.1.jar" sourcepath="C:/gradle/gradle-6.6.1/bin/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/1.9.1/bda902e43fe1f62674224452defd31f4c251e29d/junit-platform-engine-1.9.1-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>
