@@ -13,7 +13,7 @@ plugins {
     id 'jacoco'
     //Coveralls plugin to send JaCoCo files to coverall.io
     id "com.github.nbaztec.coveralls-jacoco" version "1.2.15"
-    //Sonarqube for duplicate lines
+    //Sonarqube for code analysis
     id "org.sonarqube" version "3.5.0.2730"
     //PITest mutation plugin
     id "info.solidsoft.pitest" version "1.9.0"
@@ -27,33 +27,18 @@ repositories {
 }
 
 dependencies {
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api 'org.apache.commons:commons-math3:3.6.1'
-
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation 'com.google.guava:guava:29.0-jre'
-    
-    // Logging
-    testImplementation 'org.slf4j:slf4j-api:1.7.32'
-    testImplementation 'org.slf4j:slf4j-simple:2.0.6'
    	
    	//Hibernate
     implementation 'org.hibernate:hibernate-core:6.1.6.Final'
-    implementation 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'
-	implementation 'javax.persistence:javax.persistence-api:2.2'
-	//TODO remove
+	//Different SQL Drivers
 	implementation 'mysql:mysql-connector-java:8.0.21'
 	implementation 'org.postgresql:postgresql:42.2.16'
 	implementation 'com.h2database:h2:1.4.200'
     
     if (project.hasProperty("mysql")) {
-        implementation 'mysql:mysql-connector-java:8.0.21'
         project.buildDir = 'build/mysql'
     }else if (project.hasProperty("psql")) {
-        implementation 'org.postgresql:postgresql:42.2.16'
         project.buildDir = 'build/postgresql'
-    } else if (project.hasProperty("h2")){
-        implementation 'com.h2database:h2:1.4.200'
     }
 
     // Use JUnit test framework
@@ -61,11 +46,6 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:3.12.4'
     // JUnit 5 required for testcontainers
     testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.8.1'
-    // test container
-    implementation 'org.testcontainers:testcontainers:1.16.0'
-    implementation 'org.testcontainers:postgresql:1.16.0'
-    implementation 'org.testcontainers:mysql:1.16.0'
-    implementation 'org.testcontainers:junit-jupiter:1.17.6'
     
     
 }
@@ -115,7 +95,6 @@ dependencies {
     //testcontainer
     testContainersRuntimeOnly 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testContainersRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-    // test container
     testContainersRuntimeOnly 'org.testcontainers:testcontainers:1.16.0'
     testContainersImplementation 'org.testcontainers:postgresql:1.16.0'
     testContainersImplementation 'org.testcontainers:mysql:1.16.0'
