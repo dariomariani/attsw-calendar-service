@@ -1,15 +1,13 @@
 package data;
 
-import static org.junit.Assert.assertEquals;
-
-import java.time.LocalDateTime;
-
+import models.Event;
+import models.User;
 import org.junit.Before;
 import org.junit.Test;
 
-import models.Event;
-import models.User;
-import testdataset.TestUserDataset;
+import java.time.LocalDateTime;
+
+import static org.junit.Assert.*;
 
 public class EventTest {
 	
@@ -17,25 +15,25 @@ public class EventTest {
 	
 	@Before
 	public void setup() {
-		this.standardUser = new User(TestUserDataset.USERNAME1);
+		this.standardUser = new User("John");
 	}
 	
 	@Test
 	public void testEqualsWhenSameObject() {
 		var newEvent1 = new Event("Good Event", standardUser, LocalDateTime.now(), LocalDateTime.now().plusHours(2));
-		assertEquals(true, newEvent1.equals(newEvent1));
+		assertEquals(newEvent1, newEvent1);
 	}
 	
 	@Test
 	public void testEqualsWhenDifferentClass() {
 		var newEvent1 = new Event("Good Event", standardUser, LocalDateTime.now(), LocalDateTime.now().plusHours(2));
-		assertEquals(false, newEvent1.equals(new Object()));
+		assertNotEquals(newEvent1, new Object());
 	}
 	
 	@Test
 	public void testEqualsWhenCompareWithNull() {
 		var newEvent1 = new Event("Good Event", standardUser, LocalDateTime.now(), LocalDateTime.now().plusHours(2));
-		assertEquals(false, newEvent1.equals(null));
+		assertNotEquals(null, newEvent1);
 	}
 
 }
