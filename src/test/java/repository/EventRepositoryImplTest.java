@@ -36,8 +36,6 @@ public class EventRepositoryImplTest {
 
 	private EventRepositoryImpl eventRepository;
 	
-	private EntityManagerFactory entityManagerFactory;
-	
 	@Mock
 	private EntityManagerFactory entityManagerFactoryMocked;
 	
@@ -49,19 +47,11 @@ public class EventRepositoryImplTest {
 	
 	@Mock
 	private TypedQuery<Event> typedQuery;
-	
-	private EventRepositoryImpl eventRepositoryMocked;
+
 
 	@Before
 	public void setUp() {
-		entityManagerFactory = Persistence.createEntityManagerFactory("h2");
-		eventRepository = new EventRepositoryImpl(entityManagerFactory);
-		eventRepositoryMocked = new EventRepositoryImpl(entityManagerFactoryMocked);
-	}
-
-	@After
-	public void tearDown() {
-		entityManagerFactory.close();
+		eventRepository = new EventRepositoryImpl(entityManagerFactoryMocked);
 	}
 
 	@Test
@@ -74,7 +64,7 @@ public class EventRepositoryImplTest {
 		event.setStartsAt(LocalDateTime.now());
 		event.setEndsAt(LocalDateTime.now().plusHours(1));
 
-		UUID id = eventRepositoryMocked.save(event);
+		UUID id = eventRepository.save(event);
 		verify(entityManager).close();
 		assertNotNull(id);
 		assertEquals(eventId, id);
@@ -104,7 +94,7 @@ public class EventRepositoryImplTest {
 
 	    when(entityManagerFactoryMocked.createEntityManager()).thenReturn(entityManager);
 	    when(entityManager.find(Event.class, id)).thenReturn(event);
-	    eventRepositoryMocked.findById(id);
+	    eventRepository.findById(id);
 	    verify(entityManager, times(1)).close();
 	}
 	
@@ -124,7 +114,7 @@ public class EventRepositoryImplTest {
 	    when(entityManager.createQuery(anyString(), eq(Event.class))).thenReturn(typedQuery);
 
 	    // Call the method under test
-	    eventRepositoryMocked.findAll();
+	    eventRepository.findAll();
 
 	    // Verify that entityManager.close() is called exactly once
 	    verify(entityManager, times(1)).close();
@@ -161,7 +151,7 @@ public class EventRepositoryImplTest {
 		doThrow(RuntimeException.class).when(entityManager).persist(event);
 
 		// Act & Assert
-		assertThrows(RuntimeException.class, () -> eventRepositoryMocked.save(event));
+		assertThrows(RuntimeException.class, () -> eventRepository.save(event));
 		verify(entityManager).getTransaction();
 		verify(entityManager).persist(event);
 		verify(transaction).begin();
