@@ -22,18 +22,18 @@ public class TestContainers {
 	private static String DOCKER_COMPOSE_FILE_PATH;
 	private static final Logger logger = Logger.getLogger(TestContainers.class.getName());
 
-    @Container
+    /*@Container
     private static final DockerComposeContainer<?> dockerComposeContainer = new DockerComposeContainer<>(new File(DOCKER_COMPOSE_FILE_PATH))
             .withExposedService("postgresql", 5432)
-            .withExposedService("mysql", 3306);
+            .withExposedService("mysql", 3306);*/
 
 	@Container
 	private static final PostgreSQLContainer<?> postgresqlContainer = new PostgreSQLContainer<>("postgres:13-alpine")
-	        .withDatabaseName("testdb").withUsername("testuser").withPassword("testpassword");
+	        .withDatabaseName("calendar").withUsername("psqluser").withPassword("psqlpassword").withExposedPorts(5432);
 
 	@Container
-	private static final MySQLContainer<?> mysqlContainer = new MySQLContainer<>("mysql:8.0").withDatabaseName("testdb")
-	        .withUsername("testuser").withPassword("testpassword").withEnv("MYSQL_ROOT_PASSWORD", "rootpassword");
+	private static final MySQLContainer<?> mysqlContainer = new MySQLContainer<>("mysql:8.0").withDatabaseName("calendar")
+	        .withUsername("mysqluser").withPassword("mysqlpassword").withEnv("MYSQL_ROOT_PASSWORD", "rootpassword").withExposedPorts(3306);
 
 	private static final JdbcDatabaseContainer<?>[] CONTAINERS = { postgresqlContainer, mysqlContainer };
 	
@@ -46,11 +46,13 @@ public class TestContainers {
 
 	@Test
 	public void testConnection() throws SQLException {
+		logger.info("Starting test connection...");
 		for (JdbcDatabaseContainer<?> container : CONTAINERS) {
+			logger.info("Starting container " + container.getDockerImageName());
 			container.start();
 			Connection connection = DriverManager.getConnection(container.getJdbcUrl(), container.getUsername(),
 					container.getPassword());
-			assertEquals("testdb", connection.getCatalog());
+			assertEquals("calendar", connection.getCatalog());
 			container.stop();
 		}
 	}

@@ -57,11 +57,10 @@ dependencies {
     }
 
     // Use JUnit test framework
-    testImplementation 'junit:junit:4.13'
+    testCompileOnly 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.12.4'
     // JUnit 5 required for testcontainers
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
-    testRuntimeOnly 'org.junit.platform:junit-platform-engine:1.7.2'
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.8.1'
     // test container
     implementation 'org.testcontainers:testcontainers:1.16.0'
     implementation 'org.testcontainers:postgresql:1.16.0'
@@ -72,6 +71,7 @@ dependencies {
 }
 
 test {
+    useJUnitPlatform()
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
@@ -112,6 +112,14 @@ dependencies {
     integrationTestRuntimeOnly 'org.mockito:mockito-core:3.12.4'
     integrationTestImplementation 'org.slf4j:slf4j-api:1.7.32'
     integrationTestImplementation 'org.slf4j:slf4j-simple:1.7.36'
+    //testcontainer
+    testContainersRuntimeOnly 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testContainersRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    // test container
+    testContainersRuntimeOnly 'org.testcontainers:testcontainers:1.16.0'
+    testContainersImplementation 'org.testcontainers:postgresql:1.16.0'
+    testContainersImplementation 'org.testcontainers:mysql:1.16.0'
+    testContainersImplementation 'org.testcontainers:junit-jupiter:1.17.6'
 }
 
 def integrationTest = tasks.register('integrationTest', Test) {
@@ -135,6 +143,7 @@ def testContainers = tasks.register('testContainers', Test) {
 
 
 tasks.named('check') { dependsOn(integrationTest) }
+tasks.named('check') { dependsOn(testContainers) }
 
 build.dependsOn 'pitest'
 
