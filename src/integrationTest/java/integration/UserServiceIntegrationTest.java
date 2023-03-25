@@ -65,11 +65,7 @@ public class UserServiceIntegrationTest {
 		userService.createUser(newUser);
 
 		// Act & Assert
-		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, new ThrowingRunnable() {
-			public void run() throws Throwable {
-				userService.createUser(newUser);
-			}
-		});
+		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> userService.createUser(newUser));
 		assertEquals("A User with the Username janedoe already exists.", exception.getMessage());
 	}
 

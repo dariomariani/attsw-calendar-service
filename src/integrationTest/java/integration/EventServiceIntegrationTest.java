@@ -35,7 +35,6 @@ public class EventServiceIntegrationTest {
     		dbProvider = "h2";
     	}
     	logger.info("Running EventServiceIntegrationTest with DB: " + dbProvider + " ...");
-    	// Create an in-memory H2 database
         entityManagerFactory = Persistence.createEntityManagerFactory(dbProvider);
         
         // Create the repository and service instances
