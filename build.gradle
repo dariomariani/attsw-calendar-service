@@ -127,7 +127,7 @@ tasks.named('check') { dependsOn(testContainers) }
 build.dependsOn 'pitest'
 
 pitest {
-    targetClasses = ['repository.*', 'services.*', 'utils.*']  //by default "${project.group}.*"
+    targetClasses = ['repository.*', 'services.*', 'utils.*']
     threads = 4
     outputFormats = ['XML', 'HTML']
     timestampedReports = false
