@@ -50,15 +50,6 @@ jobs:
         if: ${{ matrix.db != 'h2' }}
         run: |
           docker-compose -f ${{ github.workspace }}/src/integrationTest/resources/docker/docker-compose-${{ matrix.db }}.yml up -d
-      - name: Build and analyze
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          JAVA_TOOL_OPTIONS: "-Ddbprovider=${{ matrix.db }}"
-        uses: gradle/gradle-build-action@v2
-        with:
-          gradle-version: 8.0.2
-          arguments: check build -P${{ matrix.db }} --info
       - name: Run Coverage
         if: ${{ matrix.db == 'h2' }}
         run: |
@@ -78,3 +69,12 @@ jobs:
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
         run: ./gradlew test jacocoTestReport coverallsJacoco
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          JAVA_TOOL_OPTIONS: "-Ddbprovider=${{ matrix.db }}"
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 6.6.1
+          arguments: check build -P${{ matrix.db }} --info
