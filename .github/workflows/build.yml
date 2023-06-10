@@ -50,11 +50,11 @@ jobs:
         if: ${{ matrix.db != 'h2' }}
         run: |
           docker-compose -f ${{ github.workspace }}/src/integrationTest/resources/docker/docker-compose-${{ matrix.db }}.yml up -d
+      - name: Grant gradlew permissions
+        run: chmod +x gradlew
       - name: Run Coverage
         if: ${{ matrix.db == 'h2' }}
-        run: |
-          chmod +x gradlew
-          ./gradlew jacocoTestReport
+        run: ./gradlew jacocoTestReport
       - name: Add coverage to PR
         if: ${{ matrix.db == 'h2' }}
         id: jacoco
