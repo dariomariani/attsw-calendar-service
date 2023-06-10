@@ -25,9 +25,6 @@ group 'calendar'
 version = "0.0.2"
 
 jar {
-    baseName = 'attsw-calendar'
-    version =  project.version
-    archiveName = "${baseName}-${version}.jar"
     manifest {
         attributes(
                 'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
