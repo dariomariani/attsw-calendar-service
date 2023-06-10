@@ -21,8 +21,7 @@ public class Program {
     private static final Logger logger = Logger.getLogger(Program.class.getName());
 
     public static void main(String[] args) {
-        String dbProvider = System.getProperty("dbprovider");
-        if (dbProvider == null || dbProvider.isEmpty()) dbProvider = "h2";
+        String dbProvider = getDbProvider();
         logger.log(Level.INFO, "Calendar App is running on {0} ...", dbProvider);
         var entityManagerFactory = Persistence.createEntityManagerFactory(dbProvider);
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -65,6 +64,12 @@ public class Program {
         var resultUser = userRepository.findById(user.getId());
         logger.log(Level.INFO, "Users found: {0}", resultUser);
         if (dbProvider.equals("h2")) new Thread(openConsole).start();
+    }
+
+    private static String getDbProvider() {
+        String dbProvider = System.getProperty("dbprovider");
+        if (dbProvider == null || dbProvider.isEmpty()) dbProvider = "h2";
+        return dbProvider;
     }
 
     private static Runnable setUpH2Console(String dbProvider, EntityManager entityManager) {
