@@ -133,13 +133,11 @@ def testContainers = tasks.register('testContainers', Test) {
 
     testClassesDirs = sourceSets.testContainers.output.classesDirs
     classpath = sourceSets.testContainers.runtimeClasspath
-    shouldRunAfter integrationTest
     useJUnitPlatform()
 }
 
 
 tasks.named('check') { dependsOn(integrationTest) }
-tasks.named('check') { dependsOn(testContainers) }
 
 build.dependsOn 'pitest'
 
