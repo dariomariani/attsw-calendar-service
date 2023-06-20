@@ -160,11 +160,11 @@ public class EventServiceTest {
     public void testUpdateInvalidEventThrowsException() {
         UUID eventId = UUID.randomUUID();
         // create a test event
-        Event event = new Event(eventId, "Test Event", standardUser1, LocalDateTime.of(2023, 2, 22, 10, 0), LocalDateTime.of(2023, 2, 22, 11, 0));
+        Event event = new Event("Test Event", standardUser1, LocalDateTime.of(2023, 2, 22, 10, 0), LocalDateTime.of(2023, 2, 22, 11, 0));
         // existing event
         Event existingEvent = new Event("Existing Event", standardUser1, LocalDateTime.of(2023, 2, 23, 10, 0), LocalDateTime.of(2023, 2, 23, 11, 0));
         // create a test event
-        Event updatedEvent = new Event(eventId, "Test Event", standardUser1, LocalDateTime.of(2023, 2, 23, 10, 0), LocalDateTime.of(2023, 2, 23, 11, 0));
+        Event updatedEvent = new Event("Test Event", standardUser1, LocalDateTime.of(2023, 2, 23, 10, 0), LocalDateTime.of(2023, 2, 23, 11, 0));
         // add the test event to the repository
         when(eventRepository.findById(event.getId())).thenReturn(event);
         when(eventRepository.findAll()).thenReturn(List.of(existingEvent));
