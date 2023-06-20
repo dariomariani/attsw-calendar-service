@@ -48,8 +48,8 @@ dependencies {
    	//Hibernate
     implementation 'org.hibernate:hibernate-core:6.1.6.Final'
 	//Different SQL Drivers
-	implementation 'mysql:mysql-connector-java:8.0.21'
-	implementation 'org.postgresql:postgresql:42.2.16'
+	implementation 'mysql:mysql-connector-java:8.0.28'
+	implementation 'org.postgresql:postgresql:42.2.27'
 	implementation 'com.h2database:h2:1.4.200'
     
     if (project.hasProperty("mysql")) {
