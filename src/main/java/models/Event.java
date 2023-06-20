@@ -39,13 +39,6 @@ public class Event extends BaseEntity {
 		this.endsAt = endsAt;
 	}
 	
-	public Event(UUID id, String name, User owner, LocalDateTime startsAt, LocalDateTime endsAt) {
-		this.name = name;
-		this.startsAt = startsAt;
-		this.owner = owner;
-		this.endsAt = endsAt;
-	}
-	
 	public Event(UUID id) {
 		this.id = id;
 	}

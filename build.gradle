@@ -7,6 +7,8 @@
  */
 
 plugins {
+    id "application"
+    id "java"
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
     //JaCoCo plugin for code coverage
@@ -17,6 +19,21 @@ plugins {
     id "org.sonarqube" version "3.5.0.2730"
     //PITest mutation plugin
     id "info.solidsoft.pitest" version "1.9.0"
+}
+
+group 'calendar'
+version = "0.0.2"
+
+jar {
+    manifest {
+        attributes(
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': 'calendar.Program'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 repositories {
@@ -31,8 +48,8 @@ dependencies {
    	//Hibernate
     implementation 'org.hibernate:hibernate-core:6.1.6.Final'
 	//Different SQL Drivers
-	implementation 'mysql:mysql-connector-java:8.0.21'
-	implementation 'org.postgresql:postgresql:42.2.16'
+	implementation 'mysql:mysql-connector-java:8.0.28'
+	implementation 'org.postgresql:postgresql:42.2.27'
 	implementation 'com.h2database:h2:1.4.200'
     
     if (project.hasProperty("mysql")) {
@@ -116,18 +133,16 @@ def testContainers = tasks.register('testContainers', Test) {
 
     testClassesDirs = sourceSets.testContainers.output.classesDirs
     classpath = sourceSets.testContainers.runtimeClasspath
-    shouldRunAfter integrationTest
     useJUnitPlatform()
 }
 
 
 tasks.named('check') { dependsOn(integrationTest) }
-tasks.named('check') { dependsOn(testContainers) }
 
 build.dependsOn 'pitest'
 
 pitest {
-    targetClasses = ['repository.*', 'services.*', 'utils.*']  //by default "${project.group}.*"
+    targetClasses = ['repository.*', 'services.*', 'utils.*']
     threads = 4
     outputFormats = ['XML', 'HTML']
     timestampedReports = false
