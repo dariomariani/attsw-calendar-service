@@ -12,15 +12,15 @@ import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class BaseEntity {
-	
-	@Id
+
+    @Id
     @GeneratedValue
     @UuidGenerator(style = Style.AUTO)
-	@Column(name="id") 
-	UUID id;
-	
-	public UUID getId() {
-		return id;
-	}
+    @Column(name="id")
+    UUID id;
+
+    public UUID getId() {
+        return id;
+    }
 
 }

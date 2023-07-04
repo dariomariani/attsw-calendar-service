@@ -16,11 +16,11 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class DateTimeUtilTest {
 	
-	private LocalDateTime startDate;
-	private LocalDateTime endDate;
-	private LocalDateTime expectedDate;
-	private String expectedFormat;
-	private boolean expectedResult;
+	private final LocalDateTime startDate;
+	private final LocalDateTime endDate;
+	private final LocalDateTime expectedDate;
+	private final String expectedFormat;
+	private final boolean expectedResult;
 	
 	
 	
@@ -55,7 +55,7 @@ public class DateTimeUtilTest {
 	}
 	
 	@Test(expected = UnsupportedOperationException.class)
-	public void testWhenIstantiateUtilityClassThrowsException() throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException {
+	public void testWhenInstantiateUtilityClassThrowsException() throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException {
 		Constructor<DateTimeUtil> c = DateTimeUtil.class.getDeclaredConstructor();
 		c.setAccessible(true);
 		try {

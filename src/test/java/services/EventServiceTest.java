@@ -158,25 +158,20 @@ public class EventServiceTest {
 
     @Test
     public void testUpdateInvalidEventThrowsException() {
-        UUID eventId = UUID.randomUUID();
-        // create a test event
         Event event = new Event("Test Event", standardUser1, LocalDateTime.of(2023, 2, 22, 10, 0), LocalDateTime.of(2023, 2, 22, 11, 0));
-        // existing event
         Event existingEvent = new Event("Existing Event", standardUser1, LocalDateTime.of(2023, 2, 23, 10, 0), LocalDateTime.of(2023, 2, 23, 11, 0));
-        // create a test event
         Event updatedEvent = new Event("Test Event", standardUser1, LocalDateTime.of(2023, 2, 23, 10, 0), LocalDateTime.of(2023, 2, 23, 11, 0));
-        // add the test event to the repository
+
         when(eventRepository.findById(event.getId())).thenReturn(event);
         when(eventRepository.findAll()).thenReturn(List.of(existingEvent));
+
         assertThrows("Event not found", IllegalArgumentException.class, () -> eventService.updateEvent(updatedEvent));
     }
 
     @Test
     public void testFindEventByUserAndPeriodWithNoOverlap() {
-        UUID userId1 = UUID.randomUUID();
-        UUID userId2 = UUID.randomUUID();
-        User user1 = new User(userId1, "user1");
-        User user2 = new User(userId2, "user2");
+        User user1 = new User(UUID.randomUUID(), "user1");
+        User user2 = new User(UUID.randomUUID(), "user2");
         LocalDateTime start1 = LocalDateTime.of(2023, 2, 21, 12, 0, 0);
         LocalDateTime end1 = LocalDateTime.of(2023, 2, 21, 14, 0, 0);
         LocalDateTime start2 = LocalDateTime.of(2023, 2, 22, 12, 0, 0);
@@ -184,15 +179,15 @@ public class EventServiceTest {
         Event event1 = new Event("Event 1", user1, start1, end1);
         Event event2 = new Event("Event 2", user2, start2, end2);
         when(eventRepository.findAll()).thenReturn(Arrays.asList(event1, event2));
-        EventService eventService = new EventService(eventRepository);
-        List<Event> events = eventService.findEventByUserAndPeriod(user1, LocalDateTime.of(2023, 2, 22, 12, 0, 0), LocalDateTime.of(2023, 2, 22, 14, 0, 0));
+
+        List<Event> events = eventService.findEventByUserAndPeriod(user1, start2, end2);
+
         assertEquals(0, events.size());
     }
 
     @Test
-    public void testFindEventByUserAndPeriodWithOverlap() {
-        UUID userId = UUID.randomUUID();
-        User user1 = new User(userId, "user1");
+    public void testFindEventByUserAndPeriodWithStartOverlap() {
+        User user1 = new User(UUID.randomUUID(), "user1");
         LocalDateTime start1 = LocalDateTime.of(2023, 2, 21, 12, 0, 0);
         LocalDateTime end1 = LocalDateTime.of(2023, 2, 21, 14, 0, 0);
         LocalDateTime start2 = LocalDateTime.of(2023, 2, 22, 12, 0, 0);
@@ -200,8 +195,27 @@ public class EventServiceTest {
         Event event1 = new Event("Event 1", user1, start1, end1);
         Event event2 = new Event("Event 2", user1, start2, end2);
         Mockito.when(eventRepository.findAll()).thenReturn(Arrays.asList(event1, event2));
-        EventService eventService = new EventService(eventRepository);
-        List<Event> events = eventService.findEventByUserAndPeriod(user1, LocalDateTime.of(2023, 2, 21, 13, 0, 0), LocalDateTime.of(2023, 2, 22, 13, 0, 0));
+
+        List<Event> events = eventService.findEventByUserAndPeriod(user1, start1.minusHours(1), start2);
+
+        assertEquals(2, events.size());
+        assertTrue(events.contains(event1));
+        assertTrue(events.contains(event2));
+    }
+
+    @Test
+    public void testFindEventByUserAndPeriodWithEndOverlap() {
+        User user1 = new User(UUID.randomUUID(), "user1");
+        LocalDateTime start1 = LocalDateTime.of(2023, 2, 21, 12, 0, 0);
+        LocalDateTime end1 = LocalDateTime.of(2023, 2, 21, 14, 0, 0);
+        LocalDateTime start2 = LocalDateTime.of(2023, 2, 22, 12, 0, 0);
+        LocalDateTime end2 = LocalDateTime.of(2023, 2, 22, 14, 0, 0);
+        Event event1 = new Event("Event 1", user1, start1, end1);
+        Event event2 = new Event("Event 2", user1, start2, end2);
+        Mockito.when(eventRepository.findAll()).thenReturn(Arrays.asList(event1, event2));
+
+        List<Event> events = eventService.findEventByUserAndPeriod(user1, start1, start2.plusHours(1));
+
         assertEquals(2, events.size());
         assertTrue(events.contains(event1));
         assertTrue(events.contains(event2));
@@ -209,7 +223,6 @@ public class EventServiceTest {
 
     @Test
     public void testCheckOverlappingEventThrowsException() {
-        // Create a test user and two events that overlap
         UUID userId = UUID.randomUUID();
         User user = new User(userId, "testuser");
         LocalDateTime start1 = LocalDateTime.of(2023, 3, 1, 10, 0);
@@ -219,19 +232,12 @@ public class EventServiceTest {
         Event event1 = new Event("Event 1", user, start1, end1);
         Event event2 = new Event("Event 2", user, start2, end2);
 
-        // Create a mock repository and set up the findAll and findEventByUserAndPeriod
-        // methods
         when(eventRepository.findAll()).thenReturn(Arrays.asList(event1, event2));
 
-        // Create an event service with the mock repository
-        EventService eventService = new EventService(eventRepository);
-
-        // Attempt to create a new event that overlaps with the existing events
         LocalDateTime start3 = LocalDateTime.of(2023, 3, 1, 11, 30);
         LocalDateTime end3 = LocalDateTime.of(2023, 3, 1, 13, 30);
         Event newEvent = new Event("Event 3", user, start3, end3);
 
-        // Ensure that an exception is thrown with the correct message
         Exception exception = assertThrows(IllegalArgumentException.class, () -> eventService.createEvent(newEvent));
         assertEquals("Cannot create overlapping event.", exception.getMessage());
     }

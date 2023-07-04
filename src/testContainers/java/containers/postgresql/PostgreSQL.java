@@ -2,19 +2,21 @@ package containers.postgresql;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import models.Event;
 import models.User;
 import org.junit.jupiter.api.*;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
+import repository.impl.EventRepositoryImpl;
 import repository.impl.UserRepositoryImpl;
+import services.EventService;
 import services.UserService;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class PostgreSQL {
@@ -29,6 +31,7 @@ public class PostgreSQL {
 
     private static final Logger logger = Logger.getLogger(PostgreSQL.class.getName());
 
+    private static EventService eventService;
     private static UserService userService;
 
     @Container
@@ -47,6 +50,8 @@ public class PostgreSQL {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("psql", getPsqlPersistenceUnit(HOST_PORT));
         logger.info("@@@ Properties: " + entityManagerFactory.getProperties());
         UserRepositoryImpl userRepository = new UserRepositoryImpl(entityManagerFactory);
+        EventRepositoryImpl eventRepository = new EventRepositoryImpl(entityManagerFactory);
+        eventService = new EventService(eventRepository);
         userService = new UserService(userRepository);
     }
 
@@ -79,17 +84,30 @@ public class PostgreSQL {
     }
 
     @Test
-    public void testCreateUser() {
+    public void testCreateUserWithEventS() {
         // Arrange
-        User newUser = new User("johndoe");
-        int initialSize = userService.findAll().size();
+        User newUser = new User( "johndoe");
+
+        Event newEvent = new Event();
+        newEvent.setName("Test Event");
+        newEvent.setStartsAt(LocalDateTime.now());
+        newEvent.setEndsAt(LocalDateTime.now().plusHours(1));
+
+        newUser.setEvents(List.of(newEvent));
+
+        int userInitialSize = userService.findAll().size();
+
+        int eventsInitialSize = eventService.findAll().size();
+
 
         // Act
         userService.createUser(newUser);
         List<User> users = userService.findAll();
+        List<Event> events = eventService.findAll();
 
         // Assert
-        Assertions.assertEquals(initialSize + 1, users.size());
+        Assertions.assertEquals(userInitialSize + 1, users.size());
+        Assertions.assertEquals(eventsInitialSize + 1, events.size());
         Assertions.assertEquals(newUser, users.get(users.size() - 1));
     }
 

@@ -8,18 +8,18 @@ import models.Event;
 
 public class EventRepositoryImpl extends AbstractEntityRepository<Event> {
 
-	public EventRepositoryImpl(EntityManagerFactory entityManagerFactory) {
-		super(entityManagerFactory);
-	}
+    public EventRepositoryImpl(EntityManagerFactory entityManagerFactory) {
+        super(entityManagerFactory);
+    }
 
-	@Override
-	public Event findById(UUID id) {
-		return this.findById(id, Event.class);
-	}
+    @Override
+    public Event findById(UUID id) {
+        return this.findById(id, Event.class);
+    }
 
-	@Override
-	public List<Event> findAll() {
-		return this.findAll(Event.class);
-	}
+    @Override
+    public List<Event> findAll() {
+        return this.findAll(Event.class);
+    }
 
 }

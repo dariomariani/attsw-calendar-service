@@ -21,26 +21,26 @@ import models.User;
 import repository.impl.UserRepositoryImpl;
 
 public class UserServiceTest {
-	
-	private UserService userService;
-	
-	@Mock
-	private UserRepositoryImpl userRepository;
-	
-	private AutoCloseable closeable;
-	
-	@Before
-	public void setup() {
-		closeable = MockitoAnnotations.openMocks(this);
-		this.userService = new UserService(userRepository);
-	}
-	
-	@After
-	public void releaseMocks() throws Exception {
-		closeable.close();
-	}
 
-	@Test
+    private UserService userService;
+
+    @Mock
+    private UserRepositoryImpl userRepository;
+
+    private AutoCloseable closeable;
+
+    @Before
+    public void setup() {
+        closeable = MockitoAnnotations.openMocks(this);
+        this.userService = new UserService(userRepository);
+    }
+
+    @After
+    public void releaseMocks() throws Exception {
+        closeable.close();
+    }
+
+    @Test
     public void testFindAll() {
         List<User> userList = new ArrayList<>();
         userList.add(new User("John"));
@@ -56,7 +56,9 @@ public class UserServiceTest {
         User newUser = new User("John");
         User existingUser = new User("Jahn");
         when(userRepository.findAll()).thenReturn(Collections.singletonList(existingUser));
+
         userService.createUser(newUser);
+
         verify(userRepository, times(1)).save(newUser);
     }
 
@@ -64,12 +66,10 @@ public class UserServiceTest {
     public void testCreateUserWithExistingUsername() {
         User existingUser = new User("John");
         User newUser = new User("John");
-        List<User> userList = new ArrayList<User>();
+        List<User> userList = new ArrayList<>();
         userList.add(existingUser);
         when(userRepository.findAll()).thenReturn(userList);
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            userService.createUser(newUser);
-        });
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> userService.createUser(newUser));
         assertEquals("A User with the Username John already exists.", exception.getMessage());
         verify(userRepository, never()).save(newUser);
     }
